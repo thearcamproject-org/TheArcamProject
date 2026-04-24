@@ -60,7 +60,7 @@ export default function Process() {
   };
 
   return (
-    <section ref={ref} id="process" className="relative py-20 md:py-24 bg-black overflow-hidden antialiased min-h-fit lg:min-h-screen flex flex-col justify-center">
+    <section ref={ref} id="process" className="relative py-12 md:py-24 bg-black overflow-hidden antialiased min-h-fit lg:min-h-screen flex flex-col justify-center">
       {/* Background Accent */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none opacity-20">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[1px] bg-gradient-to-r from-transparent via-[#E7B366]/30 to-transparent" />
@@ -129,7 +129,7 @@ export default function Process() {
           initial={{ opacity: 0 }}
           whileInView="visible" viewport={{ once: true, margin: "-100px" }}
           transition={{ delay: 1, duration: 1 }}
-          className="mt-16 text-center"
+          className="mt-8 md:mt-16 text-center"
         >
           <p className="text-xs font-bold text-white/20 uppercase tracking-[0.5em]">Engineered for Velocity</p>
         </motion.div>

@@ -1,4 +1,4 @@
-import { Rocket, BarChart3, Crown, Shield, Zap, Search, Layout, Layers, RefreshCw } from 'lucide-react';
+import { Rocket, BarChart3, Crown, Shield, Zap, Search, Layout, Layers, RefreshCw, TrendingUp, Cloud } from 'lucide-react';
 
 export const SERVICE_TIERS = [
   {
@@ -64,6 +64,40 @@ export const SERVICE_TIERS = [
 
 export const ADDONS = [
   {
+    id: 'addon-growth',
+    title: 'Ongoing Growth Support',
+    subtitle: 'Growth Retainer',
+    price: 15000,
+    isMonthly: true,
+    popular: true,
+    description: 'Continuous optimization & performance improvement to keep your digital ecosystem scaling.',
+    icon: TrendingUp,
+    features: [
+      'Website updates & enhancements',
+      'Conversion optimization (CRO)',
+      'SEO improvements',
+      'Landing page creation',
+      'Performance monitoring'
+    ],
+    outcome: 'Your website continues to evolve and improve, driving better results over time.'
+  },
+  {
+    id: 'addon-hosting',
+    title: 'Hosting and Deployment',
+    price: 6000,
+    isMonthly: true,
+    popular: true,
+    description: 'Managed enterprise-grade cloud hosting and continuous deployment pipeline.',
+    icon: Cloud,
+    features: [
+      'Managed cloud infrastructure (LaunchPad: ₹6K/mo, Growth Engine: ₹10K/mo, Authority Builder: ₹20K/mo)',
+      'SSL security and custom domain configuration',
+      'Continuous deployment pipeline from Git',
+      'Daily automated backups and performance monitoring'
+    ],
+    outcome: 'Seamless uptime, high-speed delivery, and zero server maintenance overhead.'
+  },
+  {
     id: 'addon-architecture',
     title: 'Strategic site architecture',
     price: 15000,
@@ -113,3 +147,12 @@ export const ADDONS = [
     icon: Layers,
   },
 ];
+
+export const getAddonPrice = (addon, tierId) => {
+  if (addon.id === 'addon-hosting') {
+    if (tierId === 'tier-2') return 10000;
+    if (tierId === 'tier-3') return 20000;
+    return 6000; // default for tier-1
+  }
+  return addon.price;
+};

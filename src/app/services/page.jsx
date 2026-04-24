@@ -165,19 +165,53 @@ export default function ServicesPage() {
               <motion.div
                 key={addon.id}
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="p-8 rounded-[2rem] border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] hover:border-white/10 transition-all duration-500 flex flex-col h-full"
+                className={`p-8 rounded-[2rem] border transition-all duration-500 flex flex-col h-full relative overflow-hidden group ${
+                  addon.popular
+                    ? 'bg-[#E7B366]/[0.02] border-[#E7B366]/20 hover:border-[#E7B366]/40 hover:bg-[#E7B366]/[0.04]'
+                    : 'bg-white/[0.01] border-white/5 hover:bg-white/[0.03] hover:border-white/10'
+                }`}
               >
+                {addon.popular && (
+                  <div className="absolute top-4 right-6">
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#E7B366] text-black text-[7px] md:text-[8px] font-black uppercase tracking-[0.2em] shadow-2xl">Popular</span>
+                  </div>
+                )}
+                
                 <div className="p-4 rounded-2xl bg-white/5 w-max mb-6 text-white/40">
                   <addon.icon size={28} strokeWidth={1.5} />
                 </div>
-                <h3 className="text-xl font-medium text-white mb-3">{addon.title}</h3>
-                <p className="text-sm text-white/50 font-light mb-8 flex-grow">{addon.description}</p>
+                <h3 className="text-xl font-medium text-white mb-1">{addon.title}</h3>
+                {addon.subtitle && <p className="text-[10px] text-[#E7B366] tracking-widest uppercase mb-3 font-bold">{addon.subtitle}</p>}
+                
+                <p className="text-sm text-white/50 font-light mb-4 leading-relaxed">{addon.description}</p>
+                
+                {addon.features && (
+                  <ul className="space-y-1.5 mb-4">
+                    {addon.features.map((feature, fIndex) => (
+                      <li key={fIndex} className="flex items-start gap-2 text-white/70 text-xs font-light">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#E7B366] mt-1.5 flex-shrink-0" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {addon.outcome && (
+                  <p className="text-xs text-[#E7B366]/80 font-light italic mb-8 mt-auto">
+                    Outcome: {addon.outcome}
+                  </p>
+                )}
                 
                 <div className="pt-6 border-t border-white/5 mt-auto flex items-center justify-between">
-                  <p className="text-xl text-white font-medium" style={{ fontFamily: "var(--font-serif)" }}>+₹{addon.price.toLocaleString('en-IN')}</p>
+                  <p className="text-xl text-white font-medium" style={{ fontFamily: "var(--font-serif)" }}>
+                    {addon.id === 'addon-hosting' 
+                      ? '₹6,000 - ₹20,000' 
+                      : `+₹${addon.price.toLocaleString('en-IN')}`
+                    }
+                  </p>
                   {addon.isMonthly && <span className="text-[8px] text-[#E7B366] uppercase tracking-[0.2em] font-bold px-2 py-1 bg-[#E7B366]/10 rounded-full">Monthly</span>}
                 </div>
               </motion.div>

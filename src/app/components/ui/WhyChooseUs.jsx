@@ -67,7 +67,7 @@ export default function WhyChooseUs() {
   };
 
   return (
-    <section ref={ref} className="relative py-20 md:py-24 bg-black overflow-hidden antialiased min-h-fit lg:min-h-screen flex flex-col justify-center">
+    <section ref={ref} className="relative py-12 md:py-24 bg-black overflow-hidden antialiased min-h-fit lg:min-h-screen flex flex-col justify-center">
       {/* Background Cinematic Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vh] bg-[#E7B366]/5 rounded-full blur-[160px] pointer-events-none opacity-30" />
 
@@ -77,9 +77,9 @@ export default function WhyChooseUs() {
           initial="hidden"
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-12 md:mb-16 text-center"
+          className="mb-8 md:mb-16 text-center"
         >
-          <div className="flex flex-col items-center gap-4 mb-10">
+          <div className="flex flex-col items-center gap-4 mb-6 md:mb-10">
             <span className="text-[10px] font-bold text-[#E7B366] tracking-[0.6em] uppercase">Core Philosophy</span>
             <div className="w-12 h-px bg-[#E7B366]/30" />
           </div>
