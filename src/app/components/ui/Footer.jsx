@@ -192,7 +192,8 @@ export default function Footer() {
         {/* Bottom Bar */}
         <motion.div
           initial={{ opacity: 0 }}
-          whileInView="visible" viewport={{ once: true, margin: "-100px" }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-20px" }}
           transition={{ duration: 0.8, delay: 0.5 }}
           className="pt-4 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6"
         >

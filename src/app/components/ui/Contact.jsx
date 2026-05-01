@@ -5,7 +5,7 @@ import { useInView } from 'react-intersection-observer';
 import { Mail, MapPin, Phone, ArrowRight, MessageSquare, Send, X, Paperclip, ChevronDown, CheckCircle, Loader2, RotateCcw } from 'lucide-react';
 import { useState, useRef, Suspense } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
-import { SERVICE_TIERS, ADDONS } from '@/app/lib/services-data';
+import { SERVICE_TIERS, ADDONS, getAddonPrice } from '@/app/lib/services-data';
 import { useUploadThing } from '@/app/lib/uploadthing';
 
 // Exported component wraps the inner component in Suspense — required by Next.js
@@ -42,7 +42,7 @@ function ContactInner() {
 
   const configuredTier = tierId ? SERVICE_TIERS.find(t => t.id === tierId) : null;
   const configuredAddons = configuredTier ? addonIds.map(id => ADDONS.find(a => a.id === id)).filter(Boolean) : [];
-  const totalPrice = configuredTier ? configuredTier.price + configuredAddons.reduce((sum, a) => sum + a.price, 0) : 0;
+  const totalPrice = configuredTier ? configuredTier.price + configuredAddons.reduce((sum, a) => sum + getAddonPrice(a, configuredTier.id), 0) : 0;
 
   const [formState, setFormState] = useState('idle'); // idle, sending, success
   const [submittedKey, setSubmittedKey] = useState('');
@@ -150,7 +150,6 @@ function ContactInner() {
   const handleReset = () => {
     setFormState('idle');
     setSubmittedKey('');
-    setNewUpdateMessage && setNewUpdateMessage('');
   };
 
   const containerVariants = {
@@ -176,7 +175,8 @@ function ContactInner() {
   };
 
   return (
-    <section ref={ref} id="contact" className="relative py-12 md:py-32 bg-black overflow-hidden antialiased">
+    <>
+      <section ref={ref} id="contact" className={`relative py-12 md:py-32 bg-black overflow-hidden antialiased ${configuredTier ? 'pb-28 lg:pb-32' : ''}`}>
       {/* Background Accents */}
       <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-[#E7B366]/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4" />
       <div className="absolute bottom-0 left-0 w-[40vw] h-[40vw] bg-[#E7B366]/3 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/4" />
@@ -189,7 +189,7 @@ function ContactInner() {
           className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-24 items-start"
         >
           {/* Left Column: Info or Configured Package */}
-          <div className="flex flex-col">
+          <div className={configuredTier ? "hidden lg:flex flex-col w-full" : "flex flex-col w-full"}>
             <AnimatePresence mode="wait">
               {configuredTier ? (
                 <motion.div 
@@ -316,7 +316,15 @@ function ContactInner() {
           </div>
 
           {/* Right Column: Form */}
-          <motion.div variants={itemVariants} className="relative">
+          <motion.div variants={itemVariants} className="relative w-full">
+            {configuredTier && (
+              <div className="lg:hidden mb-6 px-1">
+                <span className="text-[9px] font-bold text-[#E7B366] tracking-[0.4em] uppercase block mb-1">Configured Package</span>
+                <h2 className="text-3xl font-light text-white tracking-tighter" style={{ fontFamily: "var(--font-serif)" }}>
+                  {configuredTier.title}
+                </h2>
+              </div>
+            )}
             <div className="p-6 md:p-12 rounded-3xl md:rounded-[2.5rem] bg-white/[0.02] border border-white/5 backdrop-blur-3xl shadow-2xl relative overflow-hidden group min-h-[400px] flex flex-col justify-center">
               <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
@@ -332,17 +340,12 @@ function ContactInner() {
                       className="w-20 h-20 rounded-full bg-[#E7B366]/10 border border-[#E7B366]/30 flex items-center justify-center mb-6">
                       <CheckCircle size={36} className="text-[#E7B366]" />
                     </motion.div>
-                    <h3 className="text-3xl font-light text-white mb-2" style={{ fontFamily: 'var(--font-serif)' }}>Inquiry Received</h3>
-                    <p className="text-white/50 text-sm font-light mb-8 max-w-xs leading-relaxed">
-                      Your project has been registered. A confirmation email is on its way.
+                    <h3 className="text-3xl font-light text-white mb-2" style={{ fontFamily: 'var(--font-serif)' }}>Receipt Confirmed</h3>
+                    <p className="text-white/60 text-sm font-light mb-8 max-w-sm leading-relaxed">
+                      Thank you for contacting Arcam. Your advisory request has been successfully queued for review by our engagement team.
+                      <br /><br />
+                      A representative will review your brief and reach out to you within 24 to 48 business hours. Your secure client portal access key and credentials will be manually dispatched to you once your project configuration is approved.
                     </p>
-                    {submittedKey && (
-                      <div className="w-full mb-8 p-5 rounded-2xl bg-[#E7B366]/5 border border-[#E7B366]/20">
-                        <p className="text-[9px] text-[#E7B366] uppercase tracking-[0.4em] font-bold mb-2">Your Project Key</p>
-                        <p className="text-2xl font-mono font-semibold text-white tracking-widest">{submittedKey}</p>
-                        <p className="text-xs text-white/30 mt-2">Save this — use it to access your client portal.</p>
-                      </div>
-                    )}
                     <button onClick={handleReset}
                       className="flex items-center gap-2 px-8 py-4 rounded-2xl border border-white/10 bg-white/[0.03] text-white/60 hover:text-white hover:border-white/30 transition-all duration-300 text-[10px] font-bold tracking-[0.3em] uppercase">
                       <RotateCcw size={13} /> Submit Another Inquiry
@@ -463,5 +466,27 @@ function ContactInner() {
         </motion.div>
       </div>
     </section>
+    
+    {/* Mobile Fixed Bottom Bar */}
+    {configuredTier && (
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-[#050505]/95 border-t border-white/10 backdrop-blur-xl py-3.5 px-6 shadow-[0_-15px_40px_rgba(0,0,0,0.8)] lg:hidden">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-[8px] text-white/40 uppercase tracking-[0.2em] font-bold mb-0.5">Selected Plan</p>
+            <h4 className="text-white text-xs font-semibold">{configuredTier.title}</h4>
+          </div>
+          <div className="text-right">
+            <p className="text-[8px] text-white/40 uppercase tracking-[0.2em] font-bold mb-0.5">Total Investment</p>
+            <div className="flex items-baseline gap-1">
+              <span className="text-xl font-light text-white" style={{ fontFamily: "var(--font-serif)" }}>
+                ₹{totalPrice.toLocaleString('en-IN')}
+              </span>
+              <span className="text-[8px] text-[#E7B366] font-bold tracking-wider">INR</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+    </>
   );
 }

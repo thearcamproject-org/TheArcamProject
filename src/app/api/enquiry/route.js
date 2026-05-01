@@ -63,7 +63,7 @@ export async function POST(request) {
       await resend.emails.send({
         from,
         to: [email],
-        subject: `Your Arcam Inquiry is Confirmed — ${projectKey}`,
+        subject: `Your Arcam Inquiry has been Received`,
         html: `
           <!DOCTYPE html>
           <html>
@@ -73,24 +73,22 @@ export async function POST(request) {
                 <p style="margin:0;font-size:11px;font-weight:700;letter-spacing:0.4em;color:#000;text-transform:uppercase;">Arcam — Client Advisory</p>
               </td></tr>
               <tr><td style="padding:40px 32px;">
-                <h1 style="margin:0 0 8px;font-size:28px;font-weight:300;color:#ffffff;">Inquiry Confirmed</h1>
-                <p style="margin:0 0 32px;color:#888888;font-size:14px;">Hello ${name}, your inquiry has been received and is under review.</p>
+                <h1 style="margin:0 0 8px;font-size:24px;font-weight:300;color:#ffffff;">Receipt Confirmed</h1>
+                <p style="margin:0 0 32px;color:#888888;font-size:14px;">Hello ${name},</p>
 
-                <table width="100%" cellpadding="0" cellspacing="0" style="background:#1A1A1A;border-radius:12px;padding:24px;margin-bottom:24px;">
-                  <tr><td>
-                    <p style="margin:0 0 4px;font-size:10px;font-weight:700;letter-spacing:0.3em;color:#E7B366;text-transform:uppercase;">Your Project Key</p>
-                    <p style="margin:0;font-size:28px;font-weight:600;letter-spacing:0.2em;color:#ffffff;font-family:monospace;">${projectKey}</p>
-                    <p style="margin:8px 0 0;font-size:12px;color:#555555;">Use this key to track your project on our client portal.</p>
-                  </td></tr>
-                </table>
+                <p style="margin:0 0 20px;font-size:14px;color:#cccccc;line-height:1.7;">
+                  Thank you for contacting Arcam. Your advisory request has been successfully queued for review by our engagement team.
+                </p>
+                <p style="margin:0 0 20px;font-size:14px;color:#cccccc;line-height:1.7;">
+                  A representative will review your brief and reach out to you within 24 to 48 business hours. Your secure client portal access key and credentials will be manually shared with you once your project configuration is approved.
+                </p>
 
-                <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
+                <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:32px;margin-bottom:32px;border-top:1px solid #222222;padding-top:16px;">
                   ${service_tier ? `<tr><td style="padding:8px 0;border-bottom:1px solid #1F1F1F;"><span style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.15em;">Package</span></td><td style="padding:8px 0;border-bottom:1px solid #1F1F1F;text-align:right;font-size:13px;color:#ccc;">${service_tier}</td></tr>` : ''}
                   ${price ? `<tr><td style="padding:8px 0;border-bottom:1px solid #1F1F1F;"><span style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.15em;">Investment</span></td><td style="padding:8px 0;border-bottom:1px solid #1F1F1F;text-align:right;font-size:13px;color:#ccc;">${investmentStr}</td></tr>` : ''}
                   <tr><td style="padding:8px 0;"><span style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.15em;">Date</span></td><td style="padding:8px 0;text-align:right;font-size:13px;color:#ccc;">${today}</td></tr>
                 </table>
 
-                <p style="margin:0 0 24px;font-size:13px;color:#666666;line-height:1.7;">Our advisory team will review your brief and reach out within 24–48 hours to schedule a discovery call.</p>
                 <p style="margin:0;font-size:12px;color:#444444;">— The Arcam Team</p>
               </td></tr>
             </table>
