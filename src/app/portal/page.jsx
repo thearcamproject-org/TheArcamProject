@@ -7,6 +7,26 @@ import Navigation from '@/app/components/common/Navigation';
 import { Spotlight } from '@/app/components/ui/Spotlight';
 import { Clock, CheckCircle2, Circle, ArrowLeft, Package, Calendar, Activity, Zap } from 'lucide-react';
 
+function formatTimelineDate(dateStr) {
+  const date = new Date(dateStr);
+  const today = new Date();
+  const yesterday = new Date();
+  yesterday.setDate(today.getDate() - 1);
+  
+  const isSameDay = (d1, d2) => 
+    d1.getFullYear() === d2.getFullYear() &&
+    d1.getMonth() === d2.getMonth() &&
+    d1.getDate() === d2.getDate();
+    
+  if (isSameDay(date, today)) {
+    return 'Today';
+  } else if (isSameDay(date, yesterday)) {
+    return 'Yesterday';
+  } else {
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+}
+
 function PortalContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -154,7 +174,7 @@ function PortalContent() {
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-xs text-[#E7B366] font-bold tracking-widest uppercase">{update.sender}</span>
                       <span className="text-xs text-white/40 font-mono">
-                        {new Date(update.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                        {formatTimelineDate(update.date)}
                       </span>
                     </div>
                     <p className="text-white/80 font-light leading-relaxed text-sm">
