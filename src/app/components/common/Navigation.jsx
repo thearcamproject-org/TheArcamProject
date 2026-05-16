@@ -3,13 +3,20 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 export default function Navigation() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
 
   const headerRef = useRef(null);
+  const lastPathnameRef = useRef(pathname);
+
+  useEffect(() => {
+    lastPathnameRef.current = pathname;
+  }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,8 +62,10 @@ export default function Navigation() {
 
   useEffect(() => {
     const handlePopState = () => {
-      // Force full reload on back/forward to ensure WebGL/Animations reset
-      window.location.reload();
+      // Force full reload on back/forward to ensure WebGL/Animations reset, but ignore hash changes
+      if (window.location.pathname !== lastPathnameRef.current) {
+        window.location.reload();
+      }
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
@@ -66,7 +75,7 @@ export default function Navigation() {
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
     { label: 'Services', href: '/#services' },
-    { label: 'Portfolio', href: '/#work' },
+    { label: 'Client Portal', href: '/portal' },
     { label: 'Contact', href: '/#contact' },
   ];
 
@@ -131,14 +140,16 @@ export default function Navigation() {
 
             {/* CTA Button */}
             <motion.a
-              href="/services"
+              href={pathname === '/services' || pathname === '/configure' ? '/portal' : '/services'}
               whileHover={{ scale: 1.02, y: -1 }}
               whileTap={{ scale: 0.98 }}
               className="hidden md:flex items-center px-8 py-3.5 rounded-full bg-[#E7B366] text-black font-bold text-[10px] tracking-[0.2em] uppercase transition-all duration-500 hover:shadow-[0_10px_40px_rgba(231,179,102,0.3)] relative overflow-hidden group"
             >
               {/* Shimmer Effect */}
               <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
-              <span className="relative z-10">Start Project</span>
+              <span className="relative z-10">
+                {pathname === '/services' || pathname === '/configure' ? 'Client Portal' : 'Start Project'}
+              </span>
             </motion.a>
 
             {/* Mobile Menu Toggle */}
