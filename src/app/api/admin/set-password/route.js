@@ -1,8 +1,14 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/app/lib/firebase-admin';
+import { verifyAdmin } from '@/app/lib/admin-auth';
+import bcrypt from 'bcryptjs';
 
 export async function POST(request) {
   try {
+    if (!(await verifyAdmin())) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { userId, password } = await request.json();
 
     if (!userId || !password || password.trim().length < 4) {
@@ -16,8 +22,9 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Client not found.' }, { status: 404 });
     }
 
-    // Store plain password. In production, hash with bcrypt before saving.
-    await clientRef.update({ portalPassword: password.trim() });
+    // Hash the password with bcrypt before saving to database
+    const hashedPassword = await bcrypt.hash(password.trim(), 10);
+    await clientRef.update({ portalPassword: hashedPassword });
 
     return NextResponse.json({ success: true });
   } catch (error) {

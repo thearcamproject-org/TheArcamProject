@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/app/lib/firebase-admin';
+import bcrypt from 'bcryptjs';
 
 export async function POST(request) {
   try {
@@ -19,9 +20,22 @@ export async function POST(request) {
     const doc = snapshot.docs[0];
     const userData = doc.data();
 
-    // If admin has set a password, verify it
+    // If admin has set a password, verify it using bcrypt (with legacy plain-text fallback)
     if (userData.portalPassword) {
-      if (!password || password.trim() !== userData.portalPassword) {
+      const cleanPassword = (password || '').trim();
+      let isMatch = false;
+      try {
+        isMatch = await bcrypt.compare(cleanPassword, userData.portalPassword);
+      } catch (err) {
+        isMatch = false;
+      }
+      
+      // Fallback for plain-text legacy passwords
+      if (!isMatch && cleanPassword === userData.portalPassword) {
+        isMatch = true;
+      }
+
+      if (!isMatch) {
         return NextResponse.json({ error: 'Incorrect password.' }, { status: 401 });
       }
     }

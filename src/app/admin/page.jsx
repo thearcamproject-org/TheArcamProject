@@ -5,7 +5,7 @@ import Navigation from '@/app/components/common/Navigation';
 import {
   ShieldAlert, Users, Send, CheckCircle2, X, Search, PlayCircle,
   CheckSquare, Mail, Key, Calendar, Tag, FileText, DollarSign, Package,
-  Lock, Eye, EyeOff, Pencil, Trash2, Save, ChevronRight
+  Lock, Eye, EyeOff, Pencil, Trash2, Save, ChevronRight, Paperclip
 } from 'lucide-react';
 
 export default function AdminPage() {
@@ -41,15 +41,53 @@ export default function AdminPage() {
   const [savingDetails, setSavingDetails] = useState(false);
   const [saveDetailsSuccess, setSaveDetailsSuccess] = useState(false);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (username === 'admin' && password === 'adminpassword') {
-      setIsAuthenticated(true);
-      setLoginError('');
-    } else {
-      setLoginError('Invalid admin credentials.');
+    setLoginError('');
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: username, password }),
+      });
+      if (res.ok) {
+        setIsAuthenticated(true);
+        setLoginError('');
+      } else {
+        const data = await res.json();
+        setLoginError(data.error || 'Invalid credentials.');
+      }
+    } catch (err) {
+      console.error(err);
+      setLoginError('An error occurred. Please try again.');
     }
   };
+
+  const handleLogout = async () => {
+    try {
+      const res = await fetch('/api/admin/logout', { method: 'POST' });
+      if (res.ok) {
+        setIsAuthenticated(false);
+        setUsers([]);
+      }
+    } catch (e) {
+      console.error('Logout failed', e);
+    }
+  };
+
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const res = await fetch('/api/admin/users');
+        if (res.ok) {
+          setIsAuthenticated(true);
+        }
+      } catch (e) {
+        // Not authenticated on initial load
+      }
+    };
+    checkSession();
+  }, []);
 
   const fetchUsers = async () => {
     setLoadingUsers(true);
@@ -126,6 +164,30 @@ export default function AdminPage() {
   const handleDeleteUpdate = async (updateId) => {
     if (!confirm('Delete this update? This cannot be undone.')) return;
     await callUpdatesAPI({ userId: selectedUserId, type: 'DELETE_UPDATE', payload: { id: updateId } });
+  };
+
+  const handleDeleteProject = async () => {
+    if (!selectedUserId) return;
+    if (!confirm('Are you absolutely sure you want to delete this project? This will permanently remove all details, timeline updates, and credentials from the database.')) {
+      return;
+    }
+    try {
+      const res = await fetch('/api/admin/users', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: selectedUserId })
+      });
+      if (res.ok) {
+        setSelectedUserId(null);
+        setUpdateTrigger(prev => prev + 1);
+        alert('Project deleted successfully.');
+      } else {
+        alert('Failed to delete project.');
+      }
+    } catch (e) {
+      console.error(e);
+      alert('An error occurred while deleting the project.');
+    }
   };
 
   const handleSetPassword = async (e) => {
@@ -229,7 +291,7 @@ export default function AdminPage() {
             </div>
           </div>
           <form onSubmit={handleLogin} className="space-y-3">
-            <input type="text" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)}
+            <input type="email" placeholder="Admin Email" value={username} onChange={e => setUsername(e.target.value)}
               className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#E7B366]/40 transition-colors" required />
             <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}
               className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#E7B366]/40 transition-colors" required />
@@ -318,6 +380,17 @@ export default function AdminPage() {
             ))
           )}
         </div>
+
+        {/* Sidebar Footer / Logout */}
+        <div className="p-4 border-t border-white/8 bg-[#060606]">
+          <button
+            onClick={handleLogout}
+            className="w-full py-2.5 rounded-xl border border-white/10 text-white/50 hover:text-red-400 hover:border-red-500/30 hover:bg-red-500/5 transition-all text-xs font-semibold flex items-center justify-center gap-2"
+          >
+            <Lock size={12} />
+            Sign Out
+          </button>
+        </div>
       </aside>
 
       {/* ── Main Content ─────────────────────────────────────── */}
@@ -364,6 +437,13 @@ export default function AdminPage() {
                     <option value="Completed" className="bg-[#0A0A0A]">Completed</option>
                   </select>
                 </div>
+
+                <button onClick={handleDeleteProject}
+                  className="px-4 py-2.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500 hover:text-white font-bold text-[10px] tracking-widest uppercase transition-colors flex items-center gap-2"
+                  title="Delete Project completely"
+                >
+                  <Trash2 size={13} /> Delete Project
+                </button>
 
                 <button onClick={() => setSelectedUserId(null)} className="p-2 rounded-lg bg-white/5 text-white/30 hover:text-white hover:bg-white/10 transition-colors">
                   <X size={14} />
@@ -465,6 +545,32 @@ export default function AdminPage() {
                           <p className="text-[9px] text-white/30 uppercase tracking-widest font-bold mb-1.5">Project Brief</p>
                           <p className="text-white/70 text-sm font-light leading-relaxed">{selectedUser.projectDetails.brief}</p>
                         </div>
+                      </div>
+                    )}
+                    {selectedUser.projectDetails?.attachmentUrl && (
+                      <div className="mt-4 p-4 rounded-2xl bg-white/[0.025] border border-white/8 flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-3">
+                          <Paperclip size={13} className="text-[#E7B366] shrink-0" />
+                          <div>
+                            <p className="text-[9px] text-white/30 uppercase tracking-widest font-bold mb-0.5">Attachment</p>
+                            <a 
+                              href={selectedUser.projectDetails.attachmentUrl} 
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              className="text-sm font-light text-white hover:text-[#E7B366] transition-colors underline underline-offset-4"
+                            >
+                              {selectedUser.projectDetails.attachmentName || 'View Document'}
+                            </a>
+                          </div>
+                        </div>
+                        <a 
+                          href={selectedUser.projectDetails.attachmentUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="px-3 py-1.5 rounded-lg bg-[#E7B366]/10 border border-[#E7B366]/20 text-[#E7B366] hover:bg-[#E7B366] hover:text-black text-[10px] font-bold uppercase tracking-wider transition-all duration-300"
+                        >
+                          Download
+                        </a>
                       </div>
                     )}
                     </>
