@@ -11,9 +11,11 @@ import Services from '@/app/components/ui/Services';
 import Process from '@/app/components/ui/Process';
 import WhyChooseUs from '@/app/components/ui/WhyChooseUs';
 import FinalCTA from '@/app/components/ui/FinalCTA';
-import Contact from '@/app/components/ui/Contact';
 import Footer from '@/app/components/ui/Footer';
 import Marquee from './components/ui/Marquee';
+import Contact from '@/app/components/ui/Contact';
+
+export const dynamic = 'force-dynamic';
 
 export default function Home() {
   const CAPABILITIES = ['Bespoke Engineering', 'Cinematic Motion', 'Elite UX Design', 'High-Velocity Performance', 'Strategic Architecture', 'AI Integration', 'Digital Legacy'];
@@ -37,7 +39,7 @@ export default function Home() {
       
       <WhyChooseUs />
       
-      <Suspense fallback={<div className="py-20 text-center text-[#E7B366] text-xs uppercase tracking-widest">Loading...</div>}>
+      <Suspense fallback={<div className="py-20 text-center text-[#E7B366] text-xs uppercase tracking-widest">Loading Contact...</div>}>
         <Contact />
       </Suspense>
       
