@@ -2,20 +2,57 @@ import "./globals.css";
 import { Toaster } from 'sonner';
 
 export const metadata = {
-  title: "The Arcam Project | Timeless Digital Experiences",
-  description: "Premium digital agency crafting world-class websites, digital systems, and brand experiences for ambitious businesses. EST. 2026 | Timeless By Design",
-  keywords: "digital agency, premium websites, brand identity, conversion optimization, web design",
-  authors: [{ name: "The Arcam Project" }],
+  title: {
+    default: "The Arcam Project | Timeless Digital Experiences",
+    template: "%s | The Arcam Project",
+  },
+  description: "Premium digital agency crafting world-class websites, bespoke engineering, and elite brand experiences for ambitious businesses. Built for the modern web.",
+  keywords: ["digital agency", "premium web development", "bespoke websites", "conversion optimization", "Next.js agency", "elite UX design", "timeless digital experiences", "software engineering"],
+  authors: [{ name: "The Arcam Project", url: "https://thearcamproject.in" }],
   creator: "The Arcam Project",
+  publisher: "The Arcam Project",
   metadataBase: new URL('https://thearcamproject.in'),
+  alternates: {
+    canonical: '/',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
-    title: "The Arcam Project | Timeless Digital Experiences",
-    description: "Premium digital agency crafting world-class digital experiences",
+    type: "website",
+    locale: "en_US",
     url: "https://thearcamproject.in",
     siteName: "The Arcam Project",
-    images: [{ url: '/logo.png', width: 800, height: 600, alt: 'The Arcam Project Logo' }],
-    type: "website",
+    title: "The Arcam Project | Timeless Digital Experiences",
+    description: "Premium digital agency crafting world-class websites and elite brand experiences. Architected for high-fidelity conversion.",
+    images: [
+      {
+        url: '/logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'The Arcam Project - Premium Digital Agency',
+      }
+    ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Arcam Project | Timeless Digital Experiences",
+    description: "Premium digital agency crafting world-class digital systems and brand experiences.",
+    images: ['/logo.png'],
+    creator: "@thearcamproject",
+  },
+  verification: {
+    google: "ADD_GOOGLE_VERIFICATION_ID_HERE", // Optional: the user can replace this
+  },
+  category: 'technology',
 };
 
 export default function RootLayout({ children }) {

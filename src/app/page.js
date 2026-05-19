@@ -21,8 +21,31 @@ export default function Home() {
   const CAPABILITIES = ['Bespoke Engineering', 'Cinematic Motion', 'Elite UX Design', 'High-Velocity Performance', 'Strategic Architecture', 'AI Integration', 'Digital Legacy'];
   const VALUES = ['Uncompromising Quality', 'Surgical Precision', 'Avant-Garde Aesthetics', 'Timeless Innovation', 'High-Impact Outcomes'];
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: 'The Arcam Project',
+    image: 'https://thearcamproject.in/logo.png',
+    description: 'Premium digital agency crafting world-class websites, bespoke engineering, and elite brand experiences.',
+    url: 'https://thearcamproject.in',
+    telephone: '',
+    priceRange: '$$$$',
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'IN'
+    },
+    sameAs: [
+      'https://github.com/imharry18',
+    ]
+  };
+
   return (
     <main className="overflow-x-hidden bg-black selection:bg-[#E7B366] selection:text-black min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      
       <Navigation />
       
       <Hero />
