@@ -3,6 +3,7 @@
  * EST. 2026 | Timeless By Design
  */
 
+import { Suspense } from 'react';
 import Navigation from '@/app/components/common/Navigation';
 import Hero from '@/app/components/ui/Hero';
 import Projects from '@/app/components/ui/Projects';
@@ -36,7 +37,9 @@ export default function Home() {
       
       <WhyChooseUs />
       
-      <Contact />
+      <Suspense fallback={<div className="py-20 text-center text-[#E7B366] text-xs uppercase tracking-widest">Loading...</div>}>
+        <Contact />
+      </Suspense>
       
       <FinalCTA />
       
