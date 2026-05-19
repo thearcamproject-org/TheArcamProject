@@ -187,10 +187,12 @@ export const Card = ({ card, index, layout = false }) => {
           </div>
         )}
       </AnimatePresence>
-      <motion.button
+      <motion.a
+        href={card.url || "#"}
+        target="_blank"
+        rel="noopener noreferrer"
         layoutId={layout ? `card-${card.title}` : undefined}
-        onClick={handleOpen}
-        className="rounded-3xl bg-neutral-900 h-[22rem] w-72 md:h-[28rem] md:w-[42rem] overflow-hidden flex flex-col items-start justify-start relative z-10 border border-white/5 group shadow-2xl transition-all duration-500"
+        className="rounded-3xl bg-neutral-900 h-[22rem] w-72 md:h-[28rem] md:w-[42rem] overflow-hidden flex flex-col items-start justify-start relative z-10 border border-white/5 group shadow-2xl transition-all duration-500 block"
       >
         <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/40 to-transparent z-30 pointer-events-none group-hover:from-black/90 group-hover:via-black/50 transition-all duration-700" />
         <div className="relative z-40 p-6 md:p-10 h-full w-full flex flex-col backdrop-blur-none group-hover:backdrop-blur-[2px] transition-all duration-700">
@@ -224,7 +226,7 @@ export const Card = ({ card, index, layout = false }) => {
           fill
           className="object-cover absolute inset-0 z-10 transition-transform duration-1000 group-hover:scale-105"
         />
-      </motion.button>
+      </motion.a>
     </>
   );
 };
