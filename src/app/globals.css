@@ -448,3 +448,11 @@ a:hover {
   border: 3px solid transparent;
   background-clip: padding-box;
 }
+
+/* GPU Hardware Acceleration Utility */
+.animate-gpu {
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}

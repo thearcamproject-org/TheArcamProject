@@ -8,7 +8,7 @@ export const SERVICE_TIERS = [
     price: 50000,
     description: 'For businesses getting started with their online presence.',
     icon: Rocket,
-    image: '/images/services/tier-1.png',
+    image: '/images/services/tier-1.webp',
     features: [
       '5–7 page responsive website',
       'Clean, modern design',
@@ -27,7 +27,7 @@ export const SERVICE_TIERS = [
     price: 110000,
     description: 'For businesses looking to scale and generate consistent leads.',
     icon: BarChart3,
-    image: '/images/services/tier-2.png',
+    image: '/images/services/tier-2.webp',
     popular: true,
     features: [
       '10–20 page custom website',
@@ -48,7 +48,7 @@ export const SERVICE_TIERS = [
     price: 250000,
     description: 'For brands looking to dominate their market.',
     icon: Crown,
-    image: '/images/services/tier-3.png',
+    image: '/images/services/tier-3.webp',
     features: [
       'Complete brand identity system',
       'Fully custom UI/UX design',

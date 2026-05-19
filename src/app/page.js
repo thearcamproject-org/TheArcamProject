@@ -3,16 +3,19 @@
  * EST. 2026 | Timeless By Design
  */
 
+import dynamic from 'next/dynamic';
 import Navigation from '@/app/components/common/Navigation';
 import Hero from '@/app/components/ui/Hero';
-import Projects from '@/app/components/ui/Projects';
-import Services from '@/app/components/ui/Services';
-import Process from '@/app/components/ui/Process';
-import WhyChooseUs from '@/app/components/ui/WhyChooseUs';
-import FinalCTA from '@/app/components/ui/FinalCTA';
-import Footer from '@/app/components/ui/Footer';
 import Marquee from './components/ui/Marquee';
-import Contact from '@/app/components/ui/Contact';
+
+// Dynamically load below-the-fold components
+const Projects = dynamic(() => import('@/app/components/ui/Projects'));
+const Services = dynamic(() => import('@/app/components/ui/Services'));
+const Process = dynamic(() => import('@/app/components/ui/Process'));
+const WhyChooseUs = dynamic(() => import('@/app/components/ui/WhyChooseUs'));
+const Contact = dynamic(() => import('@/app/components/ui/Contact'));
+const FinalCTA = dynamic(() => import('@/app/components/ui/FinalCTA'));
+const Footer = dynamic(() => import('@/app/components/ui/Footer'));
 
 export default function Home() {
   const CAPABILITIES = ['Bespoke Engineering', 'Cinematic Motion', 'Elite UX Design', 'High-Velocity Performance', 'Strategic Architecture', 'AI Integration', 'Digital Legacy'];

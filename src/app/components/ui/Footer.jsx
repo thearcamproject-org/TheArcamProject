@@ -98,7 +98,7 @@ export default function Footer() {
           >
             <div className="flex items-center gap-4 mb-8 group cursor-pointer">
               <div className="relative w-16 h-16 brightness-0 invert opacity-80 group-hover:opacity-100 transition-all duration-500">
-                <Image src="/logo.png" alt="Arcam Logo" fill className="object-contain" />
+                <Image src="/logo.webp" alt="Arcam Logo" fill className="object-contain" />
               </div>
               <div className="flex flex-col">
                 <span className="text-2xl font-light tracking-[0.4em] text-[#E7B366] leading-none" style={{ fontFamily: "var(--font-serif)" }}>

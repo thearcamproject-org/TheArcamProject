@@ -101,7 +101,7 @@ export default function Philosophy() {
                   <div className="h-14 w-14 rounded-[1.25rem] border flex items-center justify-center mb-8 border-white/10 bg-white/[0.02] group-hover:border-[#E7B366]/40 group-hover:bg-[#E7B366]/5 transition-all duration-700 overflow-hidden p-3">
                     <div className="relative w-full h-full brightness-0 invert opacity-30 group-hover:opacity-100 transition-all duration-700">
                       <Image
-                        src="/logo.png"
+                        src="/logo.webp"
                         alt="Arcam Logo"
                         fill
                         className="object-contain"

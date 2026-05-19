@@ -105,7 +105,7 @@ export default function Navigation() {
             >
               <div className="relative w-14 h-14 md:w-16 md:h-16 overflow-hidden transition-all duration-300">
                 <Image
-                  src="/logo.png"
+                  src="/logo.webp"
                   alt="Arcam Logo"
                   fill
                   className="object-contain"
