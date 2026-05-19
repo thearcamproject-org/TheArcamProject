@@ -3,7 +3,6 @@
  * EST. 2026 | Timeless By Design
  */
 
-import { Suspense } from 'react';
 import Navigation from '@/app/components/common/Navigation';
 import Hero from '@/app/components/ui/Hero';
 import Projects from '@/app/components/ui/Projects';
@@ -14,8 +13,6 @@ import FinalCTA from '@/app/components/ui/FinalCTA';
 import Footer from '@/app/components/ui/Footer';
 import Marquee from './components/ui/Marquee';
 import Contact from '@/app/components/ui/Contact';
-
-export const dynamic = 'force-dynamic';
 
 export default function Home() {
   const CAPABILITIES = ['Bespoke Engineering', 'Cinematic Motion', 'Elite UX Design', 'High-Velocity Performance', 'Strategic Architecture', 'AI Integration', 'Digital Legacy'];
@@ -39,9 +36,7 @@ export default function Home() {
       
       <WhyChooseUs />
       
-      <Suspense fallback={<div className="py-20 text-center text-[#E7B366] text-xs uppercase tracking-widest">Loading Contact...</div>}>
-        <Contact />
-      </Suspense>
+      <Contact />
       
       <FinalCTA />
       
@@ -49,4 +44,3 @@ export default function Home() {
     </main>
   );
 }
-// Tree refresh

@@ -3,12 +3,21 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Mail, MapPin, Phone, ArrowRight, MessageSquare, Send, X, Paperclip, ChevronDown, CheckCircle, Loader2, RotateCcw } from 'lucide-react';
-import { useState, useRef } from 'react';
+import { useState, useRef, Suspense } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { SERVICE_TIERS, ADDONS } from '@/app/lib/services-data';
 import { useUploadThing } from '@/app/lib/uploadthing';
 
+// Exported component wraps the inner component in Suspense — required by Next.js
 export default function Contact() {
+  return (
+    <Suspense fallback={<div className="py-20 text-center text-[#E7B366] text-xs uppercase tracking-widest">Loading Contact...</div>}>
+      <ContactInner />
+    </Suspense>
+  );
+}
+
+function ContactInner() {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
