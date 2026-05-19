@@ -64,7 +64,7 @@ export default function Services() {
           variants={containerVariants}
           initial="hidden"
           whileInView='visible' viewport={{ once: true, margin: '-100px' }}
-          className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-3 md:gap-4 px-2 md:px-4 max-w-[115rem] mx-auto mb-20"
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 max-w-[90rem] mx-auto mb-20"
         >
           {SERVICE_TIERS.map((service, index) => {
             const shades = ['bg-[#060606]', 'bg-[#0A0A0A]', 'bg-[#080808]', 'bg-[#0C0C0C]'];

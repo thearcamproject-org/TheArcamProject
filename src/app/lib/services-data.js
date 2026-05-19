@@ -60,22 +60,6 @@ export const SERVICE_TIERS = [
       'Hosting and Deployment'
     ],
   },
-  {
-    id: 'tier-4',
-    title: 'Growth Retainer',
-    subtitle: 'Ongoing Growth Support',
-    price: 15000,
-    description: 'Continuous optimization & performance improvement.',
-    icon: RefreshCw,
-    image: '/images/services/tier-4.png',
-    features: [
-      'Website updates & enhancements',
-      'Conversion optimization (CRO)',
-      'SEO improvements',
-      'Landing page creation',
-      'Performance monitoring'
-    ],
-  },
 ];
 
 export const ADDONS = [

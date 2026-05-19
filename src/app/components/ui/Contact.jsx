@@ -58,7 +58,6 @@ function ContactInner() {
     "LaunchPad Site (Tier I)",
     "Growth Engine (Tier II)",
     "Authority Builder (Tier III)",
-    "Ongoing Growth Support",
     "General Inquiry / Other",
     "Partnership / Collaboration"
   ];
