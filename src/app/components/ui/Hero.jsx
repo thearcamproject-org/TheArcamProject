@@ -2,11 +2,18 @@
 
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { Spotlight } from './Spotlight';
 import ColorBends from './ColorBends';
 
 export default function Hero() {
   const [loaded, setLoaded] = useState(false);
+  
+  const { ref: heroRef, inView } = useInView({
+    triggerOnce: false,
+    threshold: 0, // Unmounts as soon as it fully leaves the screen
+    rootMargin: '200px 0px 200px 0px', // Keep alive slightly off-screen
+  });
 
   useEffect(() => {
     setLoaded(true);
@@ -30,10 +37,11 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-black antialiased">
+    <section ref={heroRef} className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-black antialiased">
       {/* Background Shader Effect */}
       <div className="absolute inset-0 z-0 opacity-70 [mask-image:linear-gradient(to_bottom,white_60%,transparent)]">
-        <ColorBends
+        {inView && (
+          <ColorBends
           colors={["#FFF176", "#FFEE58", "#E7B366"]}
           rotation={66}
           speed={0.2}
@@ -50,6 +58,7 @@ export default function Hero() {
           autoRotate={0}
           color="#e4d091"
         />
+        )}
       </div>
 
       {/* Background Grid Accent */}

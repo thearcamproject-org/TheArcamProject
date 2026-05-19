@@ -1,4 +1,5 @@
 import "./globals.css";
+import { Toaster } from 'sonner';
 
 export const metadata = {
   title: "The Arcam Project | Timeless Digital Experiences",
@@ -6,11 +7,13 @@ export const metadata = {
   keywords: "digital agency, premium websites, brand identity, conversion optimization, web design",
   authors: [{ name: "The Arcam Project" }],
   creator: "The Arcam Project",
+  metadataBase: new URL('https://thearcamproject.in'),
   openGraph: {
     title: "The Arcam Project | Timeless Digital Experiences",
     description: "Premium digital agency crafting world-class digital experiences",
-    url: "https://thearcamproject.com",
+    url: "https://thearcamproject.in",
     siteName: "The Arcam Project",
+    images: [{ url: '/logo.png', width: 800, height: 600, alt: 'The Arcam Project Logo' }],
     type: "website",
   },
 };
@@ -20,7 +23,7 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="theme-color" content="#050505" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" href="/logo.png" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -35,7 +38,10 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body className="bg-black text-white">{children}</body>
+      <body className="bg-black text-white">
+        {children}
+        <Toaster theme="dark" position="bottom-right" toastOptions={{ style: { background: 'rgba(20,20,20,0.8)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', borderRadius: '16px' } }} />
+      </body>
     </html>
   );
 }

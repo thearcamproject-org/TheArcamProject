@@ -8,6 +8,8 @@ import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { SERVICE_TIERS, ADDONS, getAddonPrice } from '@/app/lib/services-data';
 import { useUploadThing } from '@/app/lib/uploadthing';
 
+import { toast } from 'sonner';
+
 // Exported component wraps the inner component in Suspense — required by Next.js
 export default function Contact() {
   return (
@@ -107,17 +109,24 @@ function ContactInner() {
       } catch (error) {
         console.error("UploadThing Error:", error);
         setFormState('idle');
-        alert("Failed to upload attachment. Please try again.");
+        toast.error("Failed to upload attachment. Please try again.");
         return;
       }
     }
 
     // 2. Prepare data for Enquiry API
     const formData = new FormData(e.target);
+    const messageContent = formData.get('message');
+    if (!messageContent || messageContent.length < 10) {
+      setFormState('idle');
+      toast.error("Please provide a more detailed message.");
+      return;
+    }
+
     const data = {
       name: formData.get('name'),
       email: formData.get('email'),
-      message: formData.get('message'),
+      message: messageContent,
       service_tier: formData.get('package_tier') || formData.get('service_tier') || '',
       price: configuredTier ? totalPrice : null,
       addons: configuredAddons.map(a => a.title),
@@ -136,9 +145,10 @@ function ContactInner() {
         const res = await response.json();
         setSubmittedKey(res.projectKey || '');
         setFormState('success');
+        toast.success("Your inquiry has been submitted successfully!");
       } else {
         setFormState('idle');
-        alert('There was an error submitting your inquiry.');
+        toast.error('There was an error submitting your inquiry.');
       }
     } catch (error) {
       console.error(error);
