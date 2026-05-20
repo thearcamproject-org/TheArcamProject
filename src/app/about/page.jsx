@@ -126,7 +126,7 @@ export default function AboutPage() {
             >
               <div className="bg-black p-8 md:p-10 flex flex-col justify-center">
                 <span className="text-[10px] text-[#E7B366] font-bold tracking-[0.3em] uppercase mb-2">Founded</span>
-                <span className="text-3xl text-white font-light" style={{ fontFamily: "var(--font-serif)" }}>2025</span>
+                <span className="text-3xl text-white font-light" style={{ fontFamily: "var(--font-serif)" }}>2026</span>
               </div>
               <div className="bg-black p-8 md:p-10 flex flex-col justify-center">
                 <span className="text-[10px] text-[#E7B366] font-bold tracking-[0.3em] uppercase mb-2">HQ</span>

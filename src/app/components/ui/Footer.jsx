@@ -199,7 +199,7 @@ export default function Footer() {
         >
           <div className="flex flex-col md:flex-row items-center gap-8">
             <p className="text-[10px] text-white/40 font-bold uppercase tracking-[0.2em]">
-              © 2025 Arcam Project. All rights reserved.
+              © 2026 Arcam Project. All rights reserved.
             </p>
           </div>
           <div className="flex gap-8 text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">

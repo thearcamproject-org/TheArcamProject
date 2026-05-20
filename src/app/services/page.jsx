@@ -63,8 +63,7 @@ export default function ServicesPage() {
                 {/* Visual Side */}
                 <motion.div 
                   initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-                  whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-                  viewport={{ once: true, margin: "-100px" }}
+                  whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                   className="w-full lg:w-1/2"
                 >
@@ -100,8 +99,7 @@ export default function ServicesPage() {
                 {/* Content Side */}
                 <motion.div 
                   initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                  viewport={{ once: true, margin: "-100px" }}
+                  whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                   className="w-full lg:w-1/2"
                 >
@@ -148,7 +146,6 @@ export default function ServicesPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            viewport={{ once: true }}
             className="text-center mb-20"
           >
             <span className="text-[10px] font-bold text-[#E7B366] tracking-[0.6em] uppercase mb-6 block">A La Carte</span>
@@ -230,7 +227,6 @@ export default function ServicesPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            viewport={{ once: true }}
           >
             <h2 className="text-5xl md:text-7xl font-light text-white mb-8" style={{ fontFamily: "var(--font-serif)" }}>
               Ready to Architect <br /> Your <em className="text-[#E7B366] italic not-italic">Legacy?</em>

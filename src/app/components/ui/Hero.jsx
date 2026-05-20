@@ -37,7 +37,7 @@ export default function Hero() {
   };
 
   return (
-    <section ref={heroRef} className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-black antialiased">
+    <section id="home" ref={heroRef} className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-black antialiased">
       {/* Background Shader Effect */}
       <div className="absolute inset-0 z-0 opacity-70 [mask-image:linear-gradient(to_bottom,white_60%,transparent)]">
         {inView && (

@@ -17,7 +17,15 @@ export default function Projects() {
       key={card.src} 
       card={{
         ...card,
-        content: <ProjectContent title={card.title} description={card.description} image={card.src} />
+        content: (
+          <ProjectContent 
+            title={card.title} 
+            description={card.description} 
+            image={card.src} 
+            url={card.url} 
+            website={card.website} 
+          />
+        )
       }} 
       index={index} 
     />
@@ -54,16 +62,50 @@ export default function Projects() {
   );
 }
 
-const ProjectContent = ({ title, description, image }) => {
+const ProjectContent = ({ title, description, image, url, website }) => {
   return (
-    <div className="bg-[#0A0A0A] p-8 md:p-14 rounded-3xl mb-4 border border-white/5">
-      <p className="text-white/80 text-base md:text-2xl font-light max-w-3xl mx-auto leading-relaxed">
-        <span className="font-bold text-[#E7B366] mb-4 block text-3xl md:text-5xl" style={{ fontFamily: "var(--font-serif)" }}>
-          {title}
-        </span>
-        {description}
-      </p>
-      <div className="mt-12 relative aspect-video w-full rounded-2xl overflow-hidden border border-white/10">
+    <div className="bg-[#0A0A0A] p-6 md:p-12 rounded-3xl mb-4 border border-white/5 flex flex-col gap-8 md:gap-12">
+      <div className="flex flex-col gap-6">
+        <p className="text-white/80 text-base md:text-2xl font-light max-w-3xl leading-relaxed">
+          <span className="font-bold text-[#E7B366] mb-4 block text-3xl md:text-5xl" style={{ fontFamily: "var(--font-serif)" }}>
+            {title}
+          </span>
+          {description}
+        </p>
+
+        {url && (
+          <div className="flex justify-start">
+            <motion.a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.02, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              className="px-8 py-4 rounded-xl bg-[#E7B366] text-black font-bold text-[10px] tracking-[0.3em] uppercase transition-all duration-500 hover:shadow-[0_15px_45px_rgba(231,179,102,0.25)] flex items-center gap-2 group/btn cursor-pointer"
+            >
+              <span>Visit Website</span>
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="14" 
+                height="14" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2.5" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+                className="transform transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
+              >
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </motion.a>
+          </div>
+        )}
+      </div>
+
+      <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-white/10">
         <img
           src={image}
           alt={title}

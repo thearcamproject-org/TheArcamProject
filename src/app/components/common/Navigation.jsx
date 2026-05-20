@@ -72,7 +72,7 @@ export default function Navigation() {
   }, []);
 
   const navItems = [
-    { label: 'Home', href: '/' },
+    { label: 'Home', href: '/#home' },
     { label: 'About', href: '/about' },
     { label: 'Services', href: '/#services' },
     { label: 'Client Portal', href: '/portal' },
@@ -98,7 +98,7 @@ export default function Navigation() {
           >
             {/* Logo */}
             <motion.a
-              href="/"
+              href="/#home"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="flex items-center gap-4 group"
