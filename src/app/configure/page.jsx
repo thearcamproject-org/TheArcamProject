@@ -22,7 +22,6 @@ function ConfiguratorContent() {
   
   const initialAddons = initialAddonIds.map(id => ADDONS.find(a => a.id === id)).filter(Boolean);
   const [selectedAddons, setSelectedAddons] = useState(initialAddons);
-  const [totalPrice, setTotalPrice] = useState(selectedTier.price);
   
   // State for details modals
   const [activeModalTier, setActiveModalTier] = useState(null);
@@ -81,10 +80,8 @@ function ConfiguratorContent() {
     }
   };
 
-  useEffect(() => {
-    const addonsTotal = selectedAddons.reduce((sum, addon) => sum + getAddonPrice(addon, selectedTier.id), 0);
-    setTotalPrice(selectedTier.price + addonsTotal);
-  }, [selectedTier, selectedAddons]);
+  const addonsTotal = selectedAddons.reduce((sum, addon) => sum + getAddonPrice(addon, selectedTier.id), 0);
+  const totalPrice = selectedTier.price + addonsTotal;
 
   const toggleAddon = (addon) => {
     if (selectedAddons.find(a => a.id === addon.id)) {
@@ -479,7 +476,7 @@ function ConfiguratorContent() {
                 {activeModalAddon.outcome && (
                   <div className="mb-8 p-4 rounded-xl border border-[#E7B366]/10 bg-[#E7B366]/[0.02] text-xs font-light text-white/80 italic">
                     <span className="text-[#E7B366] font-medium not-italic block mb-1">Expected Outcome:</span>
-                    "{activeModalAddon.outcome}"
+                    &quot;{activeModalAddon.outcome}&quot;
                   </div>
                 )}
 

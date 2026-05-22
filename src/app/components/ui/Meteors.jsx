@@ -9,8 +9,8 @@ export const Meteors = ({ number, className }) => {
     const meteorStyles = new Array(number || 20).fill(true).map(() => ({
       left: Math.floor(Math.random() * 100) + "%",
       animationDelay: Math.random() * (0.8 - 0.2) + 0.2 + "s",
-      animationDuration: Math.floor(Math.random() * (10 - 2) + 2) + "s",
     }));
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMeteors(meteorStyles);
   }, [number]);
 

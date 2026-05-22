@@ -5,6 +5,14 @@ import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
+const navItems = [
+  { label: 'Home', href: '/#home' },
+  { label: 'About', href: '/about' },
+  { label: 'Services', href: '/#services' },
+  { label: 'Client Portal', href: '/portal' },
+  { label: 'Contact', href: '/#contact' },
+];
+
 export default function Navigation() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
@@ -70,14 +78,6 @@ export default function Navigation() {
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
-
-  const navItems = [
-    { label: 'Home', href: '/#home' },
-    { label: 'About', href: '/about' },
-    { label: 'Services', href: '/#services' },
-    { label: 'Client Portal', href: '/portal' },
-    { label: 'Contact', href: '/#contact' },
-  ];
 
   return (
     <>

@@ -73,7 +73,7 @@ export default function FinalCTA() {
           </h2>
 
           <p className="text-lg md:text-xl text-white/30 font-light tracking-wide mb-16 max-w-2xl mx-auto leading-relaxed">
-            Join the elite circle of brands redefined by Arcam's high-velocity digital engineering. Your future begins with a single move.
+            Join the elite circle of brands redefined by Arcam&apos;s high-velocity digital engineering. Your future begins with a single move.
           </p>
 
           <motion.div

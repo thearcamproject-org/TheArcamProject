@@ -7,17 +7,11 @@ import { Spotlight } from './Spotlight';
 import ColorBends from './ColorBends';
 
 export default function Hero() {
-  const [loaded, setLoaded] = useState(false);
-  
   const { ref: heroRef, inView } = useInView({
     triggerOnce: false,
     threshold: 0, // Unmounts as soon as it fully leaves the screen
     rootMargin: '200px 0px 200px 0px', // Keep alive slightly off-screen
   });
-
-  useEffect(() => {
-    setLoaded(true);
-  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },

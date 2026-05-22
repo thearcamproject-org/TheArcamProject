@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/unsupported-syntax */
 'use client';
 
 import { BloomEffect, EffectComposer, EffectPass, RenderPass, SMAAEffect, SMAAPreset } from 'postprocessing';
@@ -1391,9 +1392,17 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
     };
     options.distortion = distortions[options.distortion];
 
-    const myApp = new App(container, options);
-    appRef.current = myApp;
-    myApp.loadAssets().then(myApp.init);
+    try {
+      const myApp = new App(container, options);
+      appRef.current = myApp;
+      myApp.loadAssets().then(() => {
+        if (myApp.init) myApp.init();
+      }).catch(err => {
+        console.warn("Assets load failed in Hyperspeed:", err);
+      });
+    } catch (err) {
+      console.warn("WebGL initialization failed in Hyperspeed:", err);
+    }
 
     return () => {
       if (appRef.current) {

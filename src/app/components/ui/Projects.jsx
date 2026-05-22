@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Carousel, Card } from "./AppleCardsCarousel";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { PROJECTS } from "@/app/lib/projects-data";
@@ -50,7 +51,7 @@ export default function Projects() {
             The <em className="text-[#E7B366] italic">Portfolio</em>
           </h2>
           <p className="mt-6 text-sm md:text-base text-white/40 max-w-xl mx-auto font-light leading-relaxed">
-            A curated selection of high-velocity digital ecosystems engineered for the world's most ambitious brands.
+            A curated selection of high-velocity digital ecosystems engineered for the world&apos;s most ambitious brands.
           </p>
         </motion.div>
 
@@ -106,10 +107,11 @@ const ProjectContent = ({ title, description, image, url, website }) => {
       </div>
 
       <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-white/10">
-        <img
+        <Image
           src={image}
           alt={title}
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
         />
       </div>
     </div>
