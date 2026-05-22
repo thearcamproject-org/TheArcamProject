@@ -3,7 +3,7 @@ import { Rocket, BarChart3, Crown, Shield, Zap, Search, Layout, Layers, RefreshC
 export const SERVICE_TIERS = [
   {
     id: 'tier-1',
-    title: 'LaunchPad Site',
+    title: 'Foundation',
     subtitle: 'Tier I',
     price: 50000,
     description: 'For businesses getting started with their online presence.',
@@ -22,7 +22,7 @@ export const SERVICE_TIERS = [
   },
   {
     id: 'tier-2',
-    title: 'Growth Engine',
+    title: 'Signature',
     subtitle: 'Tier II',
     price: 110000,
     description: 'For businesses looking to scale and generate consistent leads.',
@@ -43,7 +43,7 @@ export const SERVICE_TIERS = [
   },
   {
     id: 'tier-3',
-    title: 'Authority Builder System',
+    title: 'Pinnacle',
     subtitle: 'Tier III',
     price: 250000,
     description: 'For brands looking to dominate their market.',
@@ -90,7 +90,7 @@ export const ADDONS = [
     description: 'Managed enterprise-grade cloud hosting and continuous deployment pipeline.',
     icon: Cloud,
     features: [
-      'Managed cloud infrastructure (LaunchPad: ₹6K/mo, Growth Engine: ₹10K/mo, Authority Builder: ₹20K/mo)',
+      'Managed cloud infrastructure (Foundation: ₹6K/mo, Signature: ₹10K/mo, Pinnacle: ₹20K/mo)',
       'SSL security and custom domain configuration',
       'Continuous deployment pipeline from Git',
       'Daily automated backups and performance monitoring'

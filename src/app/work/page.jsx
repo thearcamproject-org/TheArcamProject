@@ -65,7 +65,7 @@ export default function WorkPage() {
           >
             <span className="text-[10px] font-bold text-[#E7B366] tracking-[0.6em] uppercase mb-8 block">Our Portfolio</span>
             <h1 className="text-6xl md:text-8xl font-light tracking-tighter text-white mb-10" style={{ fontFamily: "var(--font-serif)" }}>
-              The <em className="text-[#E7B366] italic not-italic">Archive</em>
+              The <em className="text-[#E7B366] italic">Archive</em>
             </h1>
             
             <p className="text-white/60 text-lg md:text-xl font-light mb-12 max-w-2xl mx-auto leading-relaxed">

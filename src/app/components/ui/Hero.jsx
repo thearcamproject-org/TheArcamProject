@@ -4,7 +4,8 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Spotlight } from './Spotlight';
-import ColorBends from './ColorBends';
+import dynamic from 'next/dynamic';
+const ColorBends = dynamic(() => import('./ColorBends'), { ssr: false });
 
 export default function Hero() {
   const { ref: heroRef, inView } = useInView({
@@ -12,6 +13,19 @@ export default function Hero() {
     threshold: 0, // Unmounts as soon as it fully leaves the screen
     rootMargin: '200px 0px 200px 0px', // Keep alive slightly off-screen
   });
+
+  const [isMounted, setIsMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -34,24 +48,27 @@ export default function Hero() {
     <section id="home" ref={heroRef} className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-black antialiased">
       {/* Background Shader Effect */}
       <div className="absolute inset-0 z-0 opacity-70 [mask-image:linear-gradient(to_bottom,white_60%,transparent)]">
-        {inView && (
+        {isMounted && inView && !isMobile && (
           <ColorBends
-          colors={["#FFF176", "#FFEE58", "#E7B366"]}
-          rotation={66}
-          speed={0.2}
-          scale={0.7}
-          frequency={1}
-          warpStrength={1}
-          mouseInfluence={0}
-          noise={0.15}
-          parallax={0}
-          iterations={1}
-          intensity={2.0}
-          bandWidth={6}
-          transparent
-          autoRotate={0}
-          color="#e4d091"
-        />
+            colors={["#FFF176", "#FFEE58", "#E7B366"]}
+            rotation={66}
+            speed={0.2}
+            scale={0.7}
+            frequency={1}
+            warpStrength={1}
+            mouseInfluence={0}
+            noise={0.15}
+            parallax={0}
+            iterations={1}
+            intensity={2.0}
+            bandWidth={6}
+            transparent
+            autoRotate={0}
+            color="#e4d091"
+          />
+        )}
+        {isMounted && isMobile && (
+          <div className="absolute inset-0 bg-gradient-to-br from-[#E7B366]/20 via-[#E7B366]/5 to-transparent blur-3xl opacity-60 animate-pulse" />
         )}
       </div>
 
@@ -79,7 +96,7 @@ export default function Hero() {
           {/* Main Headline */}
           <motion.h1
             variants={itemVariants}
-            className="text-6xl sm:text-7xl md:text-8xl lg:text-[8.5rem] font-medium tracking-tighter mb-10 leading-[0.95] text-white drop-shadow-[0_10px_30px_rgba(231,179,102,0.15)]"
+            className="text-5xl sm:text-7xl md:text-8xl lg:text-[8.5rem] font-medium tracking-tighter mb-10 leading-[0.95] text-white drop-shadow-[0_10px_30px_rgba(231,179,102,0.15)]"
             style={{ fontFamily: "var(--font-serif)" }}
           >
             <span className="block mb-2 font-light">Timeless</span>
@@ -88,7 +105,7 @@ export default function Hero() {
 
           <motion.p
             variants={itemVariants}
-            className="max-w-3xl text-lg md:text-xl text-white/70 font-light tracking-wide mb-14 leading-relaxed"
+            className="max-w-3xl text-sm sm:text-lg md:text-xl text-white/70 font-light tracking-wide mb-14 leading-relaxed px-4"
             style={{ fontFamily: "var(--font-body)" }}
           >
             Arcam Project builds digital presences that outlast trends — architecturally precise, visually refined, and engineered to grow with the businesses they represent.
@@ -96,13 +113,13 @@ export default function Hero() {
 
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row items-center gap-6"
+            className="flex flex-col sm:flex-row items-center gap-6 w-full sm:w-auto px-6 sm:px-0"
           >
             <motion.a
               href="/services"
               whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              className="px-10 py-5 rounded-2xl bg-[#E7B366] text-black font-bold text-xs tracking-[0.3em] uppercase transition-all duration-500 hover:shadow-[0_20px_60px_rgba(231,179,102,0.3)] relative overflow-hidden group"
+              className="w-full sm:w-auto px-10 py-5 rounded-2xl bg-[#E7B366] text-black font-bold text-xs tracking-[0.3em] uppercase transition-all duration-500 hover:shadow-[0_20px_60px_rgba(231,179,102,0.3)] relative overflow-hidden group text-center"
             >
               <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
               <span className="relative z-10">Start Project</span>
@@ -111,7 +128,7 @@ export default function Hero() {
               href="/work"
               whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              className="px-10 py-5 rounded-2xl bg-white/[0.03] border border-white/10 text-white font-bold text-xs tracking-[0.3em] uppercase hover:bg-white/10 transition-all duration-500 backdrop-blur-md hover:border-white/30"
+              className="w-full sm:w-auto px-10 py-5 rounded-2xl bg-white/[0.03] border border-white/10 text-white font-bold text-xs tracking-[0.3em] uppercase hover:bg-white/10 transition-all duration-500 backdrop-blur-md hover:border-white/30 text-center"
             >
               Portfolio
             </motion.a>

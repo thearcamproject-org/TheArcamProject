@@ -607,7 +607,9 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
           fogNear: { value: fog.near },
           fogFar: { value: fog.far }
         };
-        this.clock = new THREE.Clock();
+        this.startTime = performance.now();
+        this.lastTime = this.startTime;
+        this.elapsedTime = 0;
         this.assets = {};
         this.disposed = false;
 
@@ -777,7 +779,7 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
         this.speedUp += lerp(this.speedUp, this.speedUpTarget, lerpPercentage, 0.00001);
         this.timeOffset += this.speedUp * delta;
 
-        let time = this.clock.elapsedTime + this.timeOffset;
+        let time = this.elapsedTime + this.timeOffset;
 
         this.rightCarLights.update(time);
         this.leftCarLights.update(time);
@@ -892,7 +894,10 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
         }
 
         if (this.hasValidSize) {
-          const delta = this.clock.getDelta();
+          const now = performance.now();
+          const delta = (now - this.lastTime) / 1000;
+          this.lastTime = now;
+          this.elapsedTime = (now - this.startTime) / 1000;
           this.render(delta);
           this.update(delta);
         }

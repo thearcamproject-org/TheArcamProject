@@ -12,6 +12,7 @@ import Marquee from './components/ui/Marquee';
 const Projects = dynamic(() => import('@/app/components/ui/Projects'));
 const Services = dynamic(() => import('@/app/components/ui/Services'));
 const Process = dynamic(() => import('@/app/components/ui/Process'));
+const ROI = dynamic(() => import('@/app/components/ui/ROI'));
 const WhyChooseUs = dynamic(() => import('@/app/components/ui/WhyChooseUs'));
 const Contact = dynamic(() => import('@/app/components/ui/Contact'));
 const FinalCTA = dynamic(() => import('@/app/components/ui/FinalCTA'));
@@ -59,8 +60,8 @@ export default function Home() {
       <Services />
       
       <Process />
-      
       <WhyChooseUs />
+      <ROI />
       
       <Contact />
       

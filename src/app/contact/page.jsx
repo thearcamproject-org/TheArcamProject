@@ -28,7 +28,7 @@ export default function ContactPage() {
           >
             <span className="text-[10px] font-bold text-[#E7B366] tracking-[0.6em] uppercase mb-8 block">Connect</span>
             <h1 className="text-6xl md:text-8xl font-light tracking-tighter text-white mb-8" style={{ fontFamily: "var(--font-serif)" }}>
-              Get in <em className="text-[#E7B366] italic not-italic">Touch</em>
+              Get in <em className="text-[#E7B366] italic">Touch</em>
             </h1>
             <p className="text-white/50 text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto">
               Whether you have a specific project in mind or just want to explore the possibilities, we&apos;re here to help you architect your digital legacy.

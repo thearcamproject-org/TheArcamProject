@@ -1,15 +1,30 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Navigation from '../components/common/Navigation';
 import Footer from '../components/ui/Footer';
 import FinalCTA from '../components/ui/FinalCTA';
-import ColorBends from '../components/ui/ColorBends';
+import dynamic from 'next/dynamic';
+const ColorBends = dynamic(() => import('../components/ui/ColorBends'), { ssr: false });
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 export default function AboutPage() {
   const { scrollY } = useScroll();
   const contentY = useTransform(scrollY, [0, 1000], [0, 300]);
   const opacity = useTransform(scrollY, [0, 500], [1, 0]);
+
+  const [isMounted, setIsMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -34,23 +49,28 @@ export default function AboutPage() {
       
       {/* Fixed Static Background */}
       <div className="fixed top-0 left-0 w-full h-screen z-0 opacity-70 [mask-image:linear-gradient(to_bottom,white_60%,transparent)] pointer-events-none">
-        <ColorBends
-          colors={["#FFF176", "#FFEE58", "#E7B366"]}
-          rotation={66}
-          speed={0.2}
-          scale={0.7}
-          frequency={1}
-          warpStrength={1}
-          mouseInfluence={0}
-          noise={0.15}
-          parallax={0}
-          iterations={1}
-          intensity={2.0}
-          bandWidth={6}
-          transparent
-          autoRotate={0}
-          color="#e4d091"
-        />
+        {isMounted && !isMobile && (
+          <ColorBends
+            colors={["#FFF176", "#FFEE58", "#E7B366"]}
+            rotation={66}
+            speed={0.2}
+            scale={0.7}
+            frequency={1}
+            warpStrength={1}
+            mouseInfluence={0}
+            noise={0.15}
+            parallax={0}
+            iterations={1}
+            intensity={2.0}
+            bandWidth={6}
+            transparent
+            autoRotate={0}
+            color="#e4d091"
+          />
+        )}
+        {isMounted && isMobile && (
+          <div className="absolute inset-0 bg-gradient-to-br from-[#E7B366]/20 via-[#E7B366]/5 to-transparent blur-3xl opacity-60 animate-pulse" />
+        )}
       </div>
 
       {/* Hero Section */}
@@ -60,7 +80,7 @@ export default function AboutPage() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[50vh] bg-[#E7B366]/5 rounded-full blur-[150px] pointer-events-none" />
         
         <motion.div 
-          className="container-max relative z-10"
+          className="container-max relative z-10 w-full px-4"
           style={{ y: contentY, opacity }}
         >
           <motion.div
@@ -76,7 +96,7 @@ export default function AboutPage() {
             
             <motion.h1
               variants={itemVariants}
-              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-medium tracking-tighter mb-10 leading-[0.9] text-white"
+              className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-medium tracking-tighter mb-10 leading-[0.9] text-white"
               style={{ fontFamily: "var(--font-serif)" }}
             >
               We <em className="text-[#E7B366] italic">compose.</em>
@@ -84,7 +104,7 @@ export default function AboutPage() {
 
             <motion.p
               variants={itemVariants}
-              className="text-lg md:text-2xl text-white/70 font-light tracking-wide leading-relaxed"
+              className="text-sm sm:text-lg md:text-2xl text-white/70 font-light tracking-wide leading-relaxed px-4"
               style={{ fontFamily: "var(--font-body)" }}
             >
               Arcam Project is a bespoke web development studio operating at the intersection of design craft and digital strategy.

@@ -78,7 +78,7 @@ export default function Process() {
             <span className="text-[10px] font-bold text-[#E7B366] tracking-[0.6em] uppercase">Execution Protocol</span>
             <div className="w-12 h-px bg-[#E7B366]/30" />
           </div>
-          <h2 className="text-5xl md:text-7xl font-light tracking-tighter text-white" style={{ fontFamily: "var(--font-serif)" }}>
+          <h2 className="text-4xl md:text-6xl lg:text-8xl font-light tracking-tighter text-white leading-tight" style={{ fontFamily: "var(--font-serif)" }}>
             The <em className="text-[#E7B366] italic">Blueprint</em>
           </h2>
           <p className="mt-6 text-base md:text-lg text-white/70 max-w-xl mx-auto font-light leading-relaxed" style={{ fontFamily: "var(--font-body)" }}>
@@ -103,7 +103,7 @@ export default function Process() {
               <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-[#E7B366] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               
               <div className="flex-shrink-0 md:mb-12">
-                <span className="text-3xl md:text-5xl font-light text-[#E7B366]/20 group-hover:text-[#E7B366] transition-all duration-700" style={{ fontFamily: "var(--font-serif)" }}>
+                <span className="text-3xl md:text-5xl font-light text-[#E7B366]/60 group-hover:text-[#E7B366] transition-all duration-700" style={{ fontFamily: "var(--font-serif)" }}>
                   {step.number}
                 </span>
               </div>
@@ -112,7 +112,7 @@ export default function Process() {
                 <h3 className="text-lg md:text-2xl font-medium text-white mb-1 md:mb-4 group-hover:translate-x-1 md:group-hover:translate-x-2 transition-transform duration-700" style={{ fontFamily: "var(--font-serif)" }}>
                   {step.title}
                 </h3>
-                <p className="text-[11px] md:text-sm text-white/30 group-hover:text-white/60 transition-colors duration-700 leading-tight md:leading-relaxed font-light">
+                <p className="text-[11px] md:text-sm text-white/70 group-hover:text-white transition-colors duration-700 leading-tight md:leading-relaxed font-light">
                   {step.description}
                 </p>
               </div>

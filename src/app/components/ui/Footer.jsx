@@ -76,6 +76,7 @@ export default function Footer() {
 
   const companyLinks = [
     { name: 'About Us', url: '/about' },
+    { name: 'ROI Calculator', url: '/roi' },
     { name: 'Terms & Conditions', url: '#' },
     { name: 'Privacy Policy', url: '#' },
   ];
@@ -98,7 +99,7 @@ export default function Footer() {
           >
             <div className="flex items-center gap-4 mb-8 group cursor-pointer">
               <div className="relative w-16 h-16 brightness-0 invert opacity-80 group-hover:opacity-100 transition-all duration-500">
-                <Image src="/logo.webp" alt="Arcam Logo" fill className="object-contain" />
+                <Image src="/logo.webp" alt="Arcam Logo" fill sizes="64px" className="object-contain" />
               </div>
               <div className="flex flex-col">
                 <span className="text-2xl font-light tracking-[0.4em] text-[#E7B366] leading-none" style={{ fontFamily: "var(--font-serif)" }}>
@@ -179,9 +180,9 @@ export default function Footer() {
             className="md:col-span-5 lg:col-span-4"
           >
             <h4 className="text-[10px] font-bold text-[#E7B366] mb-8 uppercase tracking-[0.3em]">General Inquiries</h4>
-            <p className="text-xl font-light text-white mb-4 hover:text-[#E7B366] transition-all duration-300 cursor-pointer">
-              hello@arcamproject.com
-            </p>
+            <a href="mailto:build@thearcamproject.in" className="block text-xl font-light text-white mb-4 hover:text-[#E7B366] transition-all duration-300">
+              build@thearcamproject.in
+            </a>
             <p className="text-sm text-white/60 font-light tracking-wide leading-relaxed">
               Based in India.<br />
               Remote-first, serving clients globally.

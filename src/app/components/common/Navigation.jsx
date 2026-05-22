@@ -9,6 +9,7 @@ const navItems = [
   { label: 'Home', href: '/#home' },
   { label: 'About', href: '/about' },
   { label: 'Services', href: '/#services' },
+  { label: 'ROI Calculator', href: '/roi' },
   { label: 'Client Portal', href: '/portal' },
   { label: 'Contact', href: '/#contact' },
 ];
@@ -108,6 +109,7 @@ export default function Navigation() {
                   src="/logo.webp"
                   alt="Arcam Logo"
                   fill
+                  sizes="(max-width: 768px) 56px, 64px"
                   className="object-contain"
                   priority
                 />

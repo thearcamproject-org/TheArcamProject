@@ -77,7 +77,7 @@ function PortalContent() {
           Back to Work
         </button>
         <h1 className="text-4xl md:text-6xl font-light text-white tracking-tighter" style={{ fontFamily: "var(--font-serif)" }}>
-          Welcome back, <em className="text-[#E7B366] italic not-italic">{user.clientName}</em>.
+          Welcome back, <em className="text-[#E7B366] italic">{user.clientName}</em>.
         </h1>
         <p className="text-white/50 mt-4 text-lg font-light tracking-wide">Client Portal & Project Tracker</p>
       </div>

@@ -34,7 +34,7 @@ export default function ServicesPage() {
             <span className="text-[10px] font-bold text-[#E7B366] tracking-[0.6em] uppercase mb-8 block">The Offering Suite</span>
             <h1 className="text-6xl md:text-8xl lg:text-9xl font-light tracking-tighter text-white mb-8 leading-tight" style={{ fontFamily: "var(--font-serif)" }}>
               Digital <br className="hidden md:block" />
-              <em className="text-[#E7B366] italic not-italic">Architectures</em>
+              <em className="text-[#E7B366] italic">Architectures</em>
             </h1>
             <p className="text-white/50 text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto mb-12">
               We do not build standard websites. We engineer high-velocity digital ecosystems designed to dominate markets and drive revenue.
@@ -229,7 +229,7 @@ export default function ServicesPage() {
             whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           >
             <h2 className="text-5xl md:text-7xl font-light text-white mb-8" style={{ fontFamily: "var(--font-serif)" }}>
-              Ready to Architect <br /> Your <em className="text-[#E7B366] italic not-italic">Legacy?</em>
+              Ready to Architect <br /> Your <em className="text-[#E7B366] italic">Legacy?</em>
             </h2>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-12">
               <Link href="/configure">

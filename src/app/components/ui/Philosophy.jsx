@@ -75,7 +75,7 @@ export default function Philosophy() {
             <div className="w-12 h-px bg-[#E7B366]/30" />
           </div>
           <h2 className="text-5xl md:text-7xl lg:text-9xl font-light tracking-tighter text-white pb-6" style={{ fontFamily: "'Cinzel', serif" }}>
-            Our <em className="text-[#E7B366] italic not-italic">Philosophy</em>
+            Our <em className="text-[#E7B366] italic">Philosophy</em>
           </h2>
           <p className="mt-6 text-base md:text-lg text-white/30 max-w-xl mx-auto font-light leading-relaxed">
             Exceptional digital experiences are architected on a foundation of strategy, precision, and avant-garde craftsmanship.
@@ -104,6 +104,7 @@ export default function Philosophy() {
                         src="/logo.webp"
                         alt="Arcam Logo"
                         fill
+                        sizes="32px"
                         className="object-contain"
                       />
                     </div>

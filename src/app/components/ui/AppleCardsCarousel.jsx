@@ -45,11 +45,14 @@ export const Carousel = ({ items, initialScroll = 0 }) => {
 
   const handleCardClose = (index) => {
     if (carouselRef.current) {
-      const cardWidth = isMobile() ? 230 : 384; // py-32 md:py-64
-      const gap = isMobile() ? 4 : 8;
-      const scrollPosition = (cardWidth + gap) * (index + 1);
+      const cardWidth = isMobile() ? 288 : 672;
+      const gap = 24; // Tailwind gap-6 is 24px
+      const leftPadding = isMobile() ? 16 : 80; // pl-4 is 16px, pl-20 is 80px
+      const cardLeft = leftPadding + (cardWidth + gap) * index;
+      const scrollPosition = cardLeft + cardWidth / 2 - carouselRef.current.clientWidth / 2;
+      
       carouselRef.current.scrollTo({
-        left: scrollPosition - carouselRef.current.clientWidth / 2,
+        left: scrollPosition,
         behavior: 'smooth',
       });
       setCurrentIndex(index);
@@ -224,6 +227,7 @@ export const Card = ({ card, index, layout = false }) => {
           src={card.src}
           alt={card.title}
           fill
+          sizes="(max-width: 768px) 288px, 672px"
           className="object-cover absolute inset-0 z-10 transition-transform duration-1000 group-hover:scale-105"
         />
       </motion.button>

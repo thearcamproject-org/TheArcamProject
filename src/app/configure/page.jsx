@@ -140,6 +140,7 @@ function ConfiguratorContent() {
                           src={tier.image} 
                           alt={tier.title} 
                           fill 
+                          sizes="(max-width: 768px) 100vw, 740px"
                           className={`object-cover transition-all duration-1000 ${isSelected ? 'scale-110 opacity-55' : 'opacity-25 group-hover:opacity-40 grayscale group-hover:grayscale-0'}`} 
                         />
                       </div>
@@ -527,7 +528,7 @@ export default function ConfigurePage() {
           >
             <span className="text-[9px] font-bold text-[#E7B366] tracking-[0.6em] uppercase mb-3 block">Configurator</span>
             <h1 className="text-4xl md:text-6xl font-light tracking-tight text-white" style={{ fontFamily: "var(--font-serif)" }}>
-              Customize your <em className="text-[#E7B366] italic not-italic">System</em>
+              Customize your <em className="text-[#E7B366] italic">System</em>
             </h1>
           </motion.div>
         </div>

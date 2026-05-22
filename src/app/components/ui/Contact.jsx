@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Mail, MapPin, Phone, ArrowRight, MessageSquare, Send, X, Paperclip, ChevronDown, CheckCircle, Loader2, RotateCcw } from 'lucide-react';
+import { Mail, ArrowRight, MessageSquare, Send, X, Paperclip, ChevronDown, CheckCircle, Loader2, RotateCcw } from 'lucide-react';
 import { useState, useRef, Suspense } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { SERVICE_TIERS, ADDONS, getAddonPrice } from '@/app/lib/services-data';
@@ -57,9 +57,9 @@ function ContactInner() {
   const { startUpload } = useUploadThing("pdfUploader");
 
   const inquiryOptions = [
-    "LaunchPad Site (Tier I)",
-    "Growth Engine (Tier II)",
-    "Authority Builder (Tier III)",
+    "Foundation (Tier I)",
+    "Signature (Tier II)",
+    "Pinnacle (Tier III)",
     "General Inquiry / Other",
     "Partnership / Collaboration"
   ];
@@ -225,14 +225,14 @@ function ContactInner() {
                     <div className="space-y-6 mb-10 pb-10 border-b border-white/10">
                       <div className="flex justify-between items-start">
                         <div>
-                          <p className="text-[9px] text-white/40 uppercase tracking-[0.2em] font-bold mb-2">Base Tier</p>
+                          <p className="text-xs text-white/40 uppercase tracking-[0.2em] font-bold mb-2">Base Tier</p>
                           <h4 className="text-white font-medium text-lg">{configuredTier.title}</h4>
                         </div>
                         <div className="flex flex-col items-end gap-2">
                           <p className="text-white font-medium">₹{configuredTier.price.toLocaleString('en-IN')}</p>
                           <button 
                             onClick={() => router.push(`/configure?${searchParams.toString()}`)}
-                            className="inline-flex items-center gap-1 text-[9px] font-bold text-[#E7B366] hover:text-[#C89B55] uppercase tracking-widest transition-colors"
+                            className="inline-flex items-center gap-1 text-xs font-bold text-[#E7B366] hover:text-[#C89B55] uppercase tracking-widest transition-colors"
                             type="button"
                           >
                             <ArrowRight size={12} className="rotate-180" /> Change Plan
@@ -242,7 +242,7 @@ function ContactInner() {
 
                       {configuredAddons.length > 0 && (
                         <div className="space-y-4 pt-4 border-t border-white/5">
-                          <p className="text-[9px] text-white/40 uppercase tracking-[0.2em] font-bold mb-3">Enhancements</p>
+                          <p className="text-xs text-white/40 uppercase tracking-[0.2em] font-bold mb-3">Enhancements</p>
                           {configuredAddons.map(addon => (
                             <div key={addon.id} className="flex justify-between items-center text-sm">
                               <span className="text-white/60 font-light">{addon.title}</span>
@@ -254,12 +254,12 @@ function ContactInner() {
                     </div>
 
                     <div>
-                      <p className="text-[9px] text-white/40 uppercase tracking-[0.2em] font-bold mb-3">Total Investment</p>
+                      <p className="text-xs text-white/40 uppercase tracking-[0.2em] font-bold mb-3">Total Investment</p>
                       <div className="flex items-baseline gap-2">
                         <span className="text-5xl font-light text-white" style={{ fontFamily: "var(--font-serif)" }}>
                           ₹{totalPrice.toLocaleString('en-IN')}
                         </span>
-                        <span className="text-[#E7B366] text-[10px] uppercase tracking-widest font-medium">INR</span>
+                        <span className="text-[#E7B366] text-xs uppercase tracking-widest font-medium">INR</span>
                       </div>
                     </div>
                   </div>
@@ -282,7 +282,7 @@ function ContactInner() {
                     </div>
                     <h2 className="text-4xl md:text-7xl font-light tracking-tighter text-white mb-4 md:mb-6" style={{ fontFamily: "var(--font-serif)" }}>
                       Start your <br />
-                      <em className="text-[#E7B366] italic not-italic">Transformation</em>
+                      <em className="text-[#E7B366] italic">Transformation</em>
                     </h2>
                     <p className="text-white/50 text-base md:text-lg font-light leading-relaxed max-w-md">
                       Ready to redefine your digital presence? Reach out to discuss your next high-impact project.
@@ -295,27 +295,17 @@ function ContactInner() {
                         <Mail size={18} className="text-[#E7B366]/70 group-hover:text-[#E7B366] transition-colors" />
                       </div>
                       <div>
-                        <p className="text-[9px] text-[#E7B366] uppercase tracking-widest font-bold mb-0.5 md:mb-1">Email</p>
-                        <a href="mailto:hello@arcam.project" className="text-lg md:text-xl text-white/80 hover:text-white transition-colors tracking-tight">hello@arcam.project</a>
+                        <p className="text-xs text-[#E7B366] uppercase tracking-widest font-bold mb-0.5 md:mb-1">Email</p>
+                        <a href="mailto:build@thearcamproject.in" className="text-lg md:text-xl text-white/80 hover:text-white transition-colors tracking-tight">build@thearcamproject.in</a>
                       </div>
                     </div>
 
                     <div className="flex items-start gap-4 md:gap-6 group">
                       <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center transition-colors duration-500 group-hover:border-[#E7B366]/30 flex-shrink-0">
-                        <MapPin size={18} className="text-[#E7B366]/70 group-hover:text-[#E7B366] transition-colors" />
-                      </div>
-                      <div>
-                        <p className="text-[9px] text-[#E7B366] uppercase tracking-widest font-bold mb-0.5 md:mb-1">HQ</p>
-                        <p className="text-lg md:text-xl text-white/80 tracking-tight">Remote Global</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4 md:gap-6 group sm:col-span-2 md:col-span-1">
-                      <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center transition-colors duration-500 group-hover:border-[#E7B366]/30 flex-shrink-0">
                         <MessageSquare size={18} className="text-[#E7B366]/70 group-hover:text-[#E7B366] transition-colors" />
                       </div>
                       <div>
-                        <p className="text-[9px] text-[#E7B366] uppercase tracking-widest font-bold mb-0.5 md:mb-1">Connect</p>
+                        <p className="text-xs text-[#E7B366] uppercase tracking-widest font-bold mb-0.5 md:mb-1">Connect</p>
                         <a href="#" className="text-lg md:text-xl text-white/80 hover:text-white transition-colors tracking-tight">Schedule Discovery</a>
                       </div>
                     </div>
@@ -329,7 +319,7 @@ function ContactInner() {
           <motion.div variants={itemVariants} className="relative w-full">
             {configuredTier && (
               <div className="lg:hidden mb-6 px-1">
-                <span className="text-[9px] font-bold text-[#E7B366] tracking-[0.4em] uppercase block mb-1">Configured Package</span>
+                <span className="text-xs font-bold text-[#E7B366] tracking-[0.4em] uppercase block mb-1">Configured Package</span>
                 <h2 className="text-3xl font-light text-white tracking-tighter" style={{ fontFamily: "var(--font-serif)" }}>
                   {configuredTier.title}
                 </h2>
@@ -375,19 +365,19 @@ function ContactInner() {
                     )}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                       <div className="space-y-2">
-                        <label className="text-[9px] md:text-[10px] text-[#E7B366] uppercase tracking-widest font-bold ml-1">Full Name</label>
+                        <label className="text-xs text-[#E7B366] uppercase tracking-widest font-bold ml-1">Full Name</label>
                         <input type="text" name="name" required placeholder="John Doe"
                           className="w-full bg-white/[0.03] border border-white/10 rounded-xl md:rounded-2xl px-5 md:px-6 py-3.5 md:py-4 text-white placeholder:text-white/20 focus:outline-none focus:border-[#E7B366]/40 transition-all duration-300 text-sm md:text-base" />
                       </div>
                       <div className="space-y-2">
-                        <label className="text-[9px] md:text-[10px] text-[#E7B366] uppercase tracking-widest font-bold ml-1">Email</label>
+                        <label className="text-xs text-[#E7B366] uppercase tracking-widest font-bold ml-1">Email</label>
                         <input type="email" name="email" required placeholder="john@example.com"
                           className="w-full bg-white/[0.03] border border-white/10 rounded-xl md:rounded-2xl px-5 md:px-6 py-3.5 md:py-4 text-white placeholder:text-white/20 focus:outline-none focus:border-[#E7B366]/40 transition-all duration-300 text-sm md:text-base" />
                       </div>
                     </div>
                     {configuredTier ? (
                       <div className="space-y-2">
-                        <label className="text-[10px] text-[#E7B366] uppercase tracking-widest font-bold ml-1">Selected Architecture</label>
+                        <label className="text-xs text-[#E7B366] uppercase tracking-widest font-bold ml-1">Selected Architecture</label>
                         <div className="w-full bg-[#E7B366]/5 border border-[#E7B366]/20 rounded-2xl px-6 py-4 text-white flex items-center justify-between">
                           <div>
                             <p className="font-medium mb-1">{configuredTier.title}</p>
@@ -398,7 +388,7 @@ function ContactInner() {
                       </div>
                     ) : (
                       <div className="space-y-2 relative">
-                        <label className="text-[10px] text-[#E7B366] uppercase tracking-widest font-bold ml-1">Inquiry Type</label>
+                        <label className="text-xs text-[#E7B366] uppercase tracking-widest font-bold ml-1">Inquiry Type</label>
                         <input type="hidden" name="service_tier" value={selectedInquiry} />
                         <button type="button" onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                           className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-4 text-white flex items-center justify-between focus:outline-none focus:border-[#E7B366]/40 transition-all duration-300">
@@ -426,14 +416,14 @@ function ContactInner() {
                       </div>
                     )}
                     <div className="space-y-2">
-                      <label className="text-[9px] md:text-[10px] text-[#E7B366] uppercase tracking-widest font-bold ml-1">Project Brief</label>
+                      <label className="text-xs text-[#E7B366] uppercase tracking-widest font-bold ml-1">Project Brief</label>
                       <textarea name="message" required rows={3} placeholder="Tell us about your vision..."
                         className="w-full bg-white/[0.03] border border-white/10 rounded-xl md:rounded-2xl px-5 md:px-6 py-3.5 md:py-4 text-white placeholder:text-white/20 focus:outline-none focus:border-[#E7B366]/40 transition-all duration-300 resize-none text-sm md:text-base md:min-h-[120px]" />
                     </div>
                     <div className="space-y-2">
                       <div className="flex items-center justify-between ml-1">
-                        <label className="text-[10px] text-[#E7B366] uppercase tracking-widest font-bold">Project Details (Optional)</label>
-                        <span className="text-[9px] text-white/40 uppercase tracking-widest font-medium">PDF/DOCX, &lt; 4MB</span>
+                        <label className="text-xs text-[#E7B366] uppercase tracking-widest font-bold">Project Details (Optional)</label>
+                        <span className="text-xs text-white/40 uppercase tracking-widest font-medium">PDF/DOCX, &lt; 4MB</span>
                       </div>
                       <div className="relative">
                         <input type="file" ref={fileInputRef} onChange={handleFileChange}
@@ -459,11 +449,11 @@ function ContactInner() {
                       {formState === 'sending' ? (
                         <>
                           <Loader2 size={16} className="relative z-10 text-[#E7B366] animate-spin" />
-                          <span className="relative z-10 text-[#E7B366] font-semibold text-[10px] tracking-[0.4em] uppercase">Sending...</span>
+                          <span className="relative z-10 text-[#E7B366] font-semibold text-xs tracking-[0.4em] uppercase">Sending...</span>
                         </>
                       ) : (
                         <>
-                          <span className="relative z-10 text-white/80 group-hover/btn:text-black font-semibold text-[10px] tracking-[0.4em] uppercase transition-all duration-500">Dispatch Inquiry</span>
+                          <span className="relative z-10 text-white/80 group-hover/btn:text-black font-semibold text-xs tracking-[0.4em] uppercase transition-all duration-500">Dispatch Inquiry</span>
                           <Send size={14} className="relative z-10 text-[#E7B366] group-hover/btn:text-black transition-all duration-500" />
                         </>
                       )}
@@ -482,16 +472,16 @@ function ContactInner() {
       <div className="fixed bottom-0 left-0 right-0 z-40 bg-[#050505]/95 border-t border-white/10 backdrop-blur-xl py-3.5 px-6 shadow-[0_-15px_40px_rgba(0,0,0,0.8)] lg:hidden">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <p className="text-[8px] text-white/40 uppercase tracking-[0.2em] font-bold mb-0.5">Selected Plan</p>
+            <p className="text-xs text-white/40 uppercase tracking-[0.2em] font-bold mb-0.5">Selected Plan</p>
             <h4 className="text-white text-xs font-semibold">{configuredTier.title}</h4>
           </div>
           <div className="text-right">
-            <p className="text-[8px] text-white/40 uppercase tracking-[0.2em] font-bold mb-0.5">Total Investment</p>
+            <p className="text-xs text-white/40 uppercase tracking-[0.2em] font-bold mb-0.5">Total Investment</p>
             <div className="flex items-baseline gap-1">
               <span className="text-xl font-light text-white" style={{ fontFamily: "var(--font-serif)" }}>
                 ₹{totalPrice.toLocaleString('en-IN')}
               </span>
-              <span className="text-[8px] text-[#E7B366] font-bold tracking-wider">INR</span>
+              <span className="text-xs text-[#E7B366] font-bold tracking-wider">INR</span>
             </div>
           </div>
         </div>

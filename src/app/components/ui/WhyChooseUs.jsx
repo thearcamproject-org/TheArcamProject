@@ -83,9 +83,12 @@ export default function WhyChooseUs() {
             <span className="text-[10px] font-bold text-[#E7B366] tracking-[0.6em] uppercase">Core Philosophy</span>
             <div className="w-12 h-px bg-[#E7B366]/30" />
           </div>
-          <h2 className="text-5xl md:text-7xl font-light tracking-tighter text-white" style={{ fontFamily: "var(--font-serif)" }}>
-            The <em className="text-[#E7B366] italic">Arcam</em> Edge
+          <h2 className="text-4xl md:text-6xl lg:text-8xl font-light tracking-tighter text-white leading-tight" style={{ fontFamily: "var(--font-serif)" }}>
+            The <em className="text-[#E7B366] italic">Arcam Edge</em>
           </h2>
+          <p className="mt-6 text-base md:text-lg text-white/70 max-w-xl mx-auto font-light leading-relaxed" style={{ fontFamily: "var(--font-body)" }}>
+            We do not compete on price. We compete on permanence. Every decision we make is built to outlast the moment.
+          </p>
         </motion.div>
 
         {/* High-Density Benefits Grid - Optimized for Mobile Comparison */}
@@ -93,16 +96,16 @@ export default function WhyChooseUs() {
           variants={containerVariants}
           initial="hidden"
           whileInView='visible' viewport={{ once: true, margin: '-100px' }}
-          className="grid grid-cols-2 lg:grid-cols-3 gap-px bg-white/5 border border-white/5 rounded-[2rem] overflow-hidden"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5 border border-white/5 rounded-[2rem] overflow-hidden"
         >
           {benefits.map((benefit, index) => (
             <motion.div
               key={index}
               variants={benefitVariants}
-              className="group relative bg-black p-6 md:p-12 hover:bg-white/[0.02] transition-all duration-700 min-h-[160px] md:min-h-[260px] flex flex-col justify-center items-center text-center md:items-start md:text-left"
+              className="group relative bg-black p-8 md:p-12 hover:bg-white/[0.02] transition-all duration-700 min-h-[160px] md:min-h-[260px] flex flex-col justify-center items-center text-center md:items-start md:text-left"
             >
               {/* Subtle Icon Background */}
-              <div className="absolute top-4 right-4 md:top-8 md:right-8 w-8 h-8 md:w-12 md:h-12 flex items-center justify-center opacity-10 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none">
+              <div className="absolute top-4 right-4 md:top-8 md:right-8 w-8 h-8 md:w-12 md:h-12 flex items-center justify-center opacity-30 group-hover:opacity-70 transition-opacity duration-700 pointer-events-none">
                 <benefit.icon 
                   size={24} 
                   strokeWidth={1} 
@@ -113,7 +116,7 @@ export default function WhyChooseUs() {
               <h3 className="font-medium text-lg md:text-2xl text-white mb-2 md:mb-4 tracking-tight group-hover:text-[#E7B366] transition-colors duration-700 leading-tight" style={{ fontFamily: "var(--font-serif)" }}>
                 {benefit.title}
               </h3>
-              <p className="text-white/70 text-[9px] md:text-sm font-light leading-snug md:leading-relaxed group-hover:text-white transition-colors duration-500 max-w-[140px] md:max-w-[280px]">
+              <p className="text-white/80 text-xs sm:text-sm font-light leading-snug md:leading-relaxed group-hover:text-white transition-colors duration-500 max-w-xs sm:max-w-[280px]">
                 {benefit.description}
               </p>
 

@@ -11,7 +11,7 @@ export let MOCK_USERS = [
     projectKey: "ZENITH-2026", // Mock key
     projectDetails: {
       name: "Zenith Capital Systems",
-      tier: "Authority Builder (Tier III)",
+      tier: "Pinnacle (Tier III)",
       investment: "₹1,85,000",
       startDate: "2026-05-10",
       status: "In Development", // Active Phase
@@ -28,7 +28,7 @@ export let MOCK_USERS = [
     projectKey: "AURA-8888", // Mock key
     projectDetails: {
       name: "Aura Global Residences",
-      tier: "Growth Engine (Tier II)",
+      tier: "Signature (Tier II)",
       investment: "₹1,10,000",
       startDate: "2026-05-14",
       status: "Pending Kick-off", // New Phase
@@ -42,7 +42,7 @@ export let MOCK_USERS = [
     projectKey: "NOVA-9999", // Mock key
     projectDetails: {
       name: "Nova Visuals Portfolio",
-      tier: "Digital Foundation (Tier I)",
+      tier: "Foundation (Tier I)",
       investment: "₹50,000",
       startDate: "2026-04-01",
       status: "Completed", // Completed Phase

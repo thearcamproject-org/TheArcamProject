@@ -1,14 +1,29 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import Hyperspeed from './Hyperspeed';
+import dynamic from 'next/dynamic';
+const Hyperspeed = dynamic(() => import('./Hyperspeed'), { ssr: false });
 
 export default function FinalCTA() {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  const [isMounted, setIsMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <section ref={ref} className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-black py-20 md:py-32">
@@ -17,45 +32,50 @@ export default function FinalCTA() {
         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black via-transparent to-black opacity-80" />
         <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,_transparent_10%,_black_80%)]" />
         <div className="w-full h-full transform scale-125 opacity-70 -translate-y-[15%]">
-          <Hyperspeed
-            effectOptions={{
-              onSpeedUp: () => { },
-              onSlowDown: () => { },
-              distortion: 'turbulentDistortion',
-              length: 400,
-              roadWidth: 10,
-              islandWidth: 2,
-              lanesPerRoad: 4,
-              fov: 90,
-              fovSpeedUp: 150,
-              speedUp: 2,
-              carLightsFade: 0.8,
-              totalSideLightSticks: 8,
-              lightPairsPerRoadWay: 5,
-              shoulderLinesWidthPercentage: 0.05,
-              brokenLinesWidthPercentage: 0.1,
-              brokenLinesLengthPercentage: 0.5,
-              lightStickWidth: [0.12, 0.5],
-              lightStickHeight: [1.3, 1.7],
-              movingAwaySpeed: [10, 15],
-              movingCloserSpeed: [-20, -30],
-              carLightsLength: [400 * 0.03, 400 * 0.2],
-              carLightsRadius: [0.05, 0.14],
-              carWidthPercentage: [0.3, 0.5],
-              carShiftX: [-0.8, 0.8],
-              carFloorSeparation: [0, 5],
-              colors: {
-                roadColor: 0x080808,
-                islandColor: 0x0a0a0a,
-                background: 0x000000,
-                shoulderLines: 0xE7B366,
-                brokenLines: 0xE7B366,
-                leftCars: [0xE7B366, 0xD4AF37, 0xFBF2C0],
-                rightCars: [0xE7B366, 0xB38728, 0xC5A028],
-                sticks: 0xE7B366
-              }
-            }}
-          />
+          {isMounted && inView && !isMobile && (
+            <Hyperspeed
+              effectOptions={{
+                onSpeedUp: () => { },
+                onSlowDown: () => { },
+                distortion: 'turbulentDistortion',
+                length: 400,
+                roadWidth: 10,
+                islandWidth: 2,
+                lanesPerRoad: 4,
+                fov: 90,
+                fovSpeedUp: 150,
+                speedUp: 2,
+                carLightsFade: 0.8,
+                totalSideLightSticks: 8,
+                lightPairsPerRoadWay: 5,
+                shoulderLinesWidthPercentage: 0.05,
+                brokenLinesWidthPercentage: 0.1,
+                brokenLinesLengthPercentage: 0.5,
+                lightStickWidth: [0.12, 0.5],
+                lightStickHeight: [1.3, 1.7],
+                movingAwaySpeed: [10, 15],
+                movingCloserSpeed: [-20, -30],
+                carLightsLength: [400 * 0.03, 400 * 0.2],
+                carLightsRadius: [0.05, 0.14],
+                carWidthPercentage: [0.3, 0.5],
+                carShiftX: [-0.8, 0.8],
+                carFloorSeparation: [0, 5],
+                colors: {
+                  roadColor: 0x080808,
+                  islandColor: 0x0a0a0a,
+                  background: 0x000000,
+                  shoulderLines: 0xE7B366,
+                  brokenLines: 0xE7B366,
+                  leftCars: [0xE7B366, 0xD4AF37, 0xFBF2C0],
+                  rightCars: [0xE7B366, 0xB38728, 0xC5A028],
+                  sticks: 0xE7B366
+                }
+              }}
+            />
+          )}
+          {isMounted && isMobile && (
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-[#E7B366]/10 to-black opacity-80" />
+          )}
         </div>
       </div>
 
@@ -69,7 +89,7 @@ export default function FinalCTA() {
           
           <h2 className="text-6xl md:text-8xl lg:text-[10rem] font-extralight tracking-tighter text-white mb-12 leading-[0.85] uppercase" style={{ fontFamily: "var(--font-serif)" }}>
             Build Your<br />
-            <em className="text-[#E7B366] italic not-italic">Legacy</em>
+            <em className="text-[#E7B366] italic">Legacy</em>
           </h2>
 
           <p className="text-lg md:text-xl text-white/30 font-light tracking-wide mb-16 max-w-2xl mx-auto leading-relaxed">

@@ -136,25 +136,23 @@ export default function ColorBends({
   const pointerTargetRef = useRef(new THREE.Vector2(0, 0));
   const pointerCurrentRef = useRef(new THREE.Vector2(0, 0));
   const pointerSmoothRef = useRef(8);
+  const sceneRef = useRef(null);
+  const cameraRef = useRef(null);
+  const geometryRef = useRef(null);
+  const startTimeRef = useRef(null);
+  const lastTimeRef = useRef(null);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    let scene;
-    let camera;
-    let geometry;
-    let material;
-    let renderer;
-    let clock;
-
     try {
-      scene = new THREE.Scene();
-      camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+      sceneRef.current = new THREE.Scene();
+      cameraRef.current = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 
-      geometry = new THREE.PlaneGeometry(2, 2);
+      geometryRef.current = new THREE.PlaneGeometry(2, 2);
       const uColorsArray = Array.from({ length: MAX_COLORS }, () => new THREE.Vector3(0, 0, 0));
-      material = new THREE.ShaderMaterial({
+      materialRef.current = new THREE.ShaderMaterial({
         vertexShader: vert,
         fragmentShader: frag,
         uniforms: {
@@ -179,41 +177,51 @@ export default function ColorBends({
         premultipliedAlpha: true,
         transparent: true
       });
-      materialRef.current = material;
 
-      const mesh = new THREE.Mesh(geometry, material);
-      scene.add(mesh);
+      const mesh = new THREE.Mesh(geometryRef.current, materialRef.current);
+      sceneRef.current.add(mesh);
 
-      renderer = new THREE.WebGLRenderer({
+      rendererRef.current = new THREE.WebGLRenderer({
         antialias: false,
         powerPreference: 'high-performance',
         alpha: true
       });
-      rendererRef.current = renderer;
       // Three r152+ uses outputColorSpace and SRGBColorSpace
-      renderer.outputColorSpace = THREE.SRGBColorSpace;
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-      renderer.setClearColor(0x000000, transparent ? 0 : 1);
-      renderer.domElement.style.width = '100%';
-      renderer.domElement.style.height = '100%';
-      renderer.domElement.style.display = 'block';
-      container.appendChild(renderer.domElement);
+      rendererRef.current.outputColorSpace = THREE.SRGBColorSpace;
+      rendererRef.current.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      rendererRef.current.setClearColor(0x000000, transparent ? 0 : 1);
+      rendererRef.current.domElement.style.width = '100%';
+      rendererRef.current.domElement.style.height = '100%';
+      rendererRef.current.domElement.style.display = 'block';
+      container.appendChild(rendererRef.current.domElement);
 
-      clock = new THREE.Clock();
+      startTimeRef.current = performance.now();
+      lastTimeRef.current = startTimeRef.current;
     } catch (err) {
       console.warn("WebGL initialization failed in ColorBends:", err);
-      if (geometry) geometry.dispose();
-      if (material) material.dispose();
-      if (renderer) renderer.dispose();
+      if (geometryRef.current) {
+        geometryRef.current.dispose();
+        geometryRef.current = null;
+      }
+      if (materialRef.current) {
+        materialRef.current.dispose();
+        materialRef.current = null;
+      }
+      if (rendererRef.current) {
+        rendererRef.current.dispose();
+        rendererRef.current = null;
+      }
       return;
     }
 
     const handleResize = () => {
-      if (!renderer || !material) return;
+      const r = rendererRef.current;
+      const m = materialRef.current;
+      if (!r || !m) return;
       const w = container.clientWidth || 1;
       const h = container.clientHeight || 1;
-      renderer.setSize(w, h, false);
-      material.uniforms.uCanvas.value.set(w, h);
+      r.setSize(w, h, false);
+      m.uniforms.uCanvas.value.set(w, h);
     };
 
     handleResize();
@@ -229,23 +237,29 @@ export default function ColorBends({
     }
 
     const loop = () => {
-      if (!renderer || !material || !clock) return;
-      const dt = clock.getDelta();
-      const elapsed = clock.elapsedTime;
-      material.uniforms.uTime.value = elapsed;
+      const r = rendererRef.current;
+      const m = materialRef.current;
+      const s = sceneRef.current;
+      const c = cameraRef.current;
+      if (!r || !m || !s || !c || startTimeRef.current === null) return;
+      const now = performance.now();
+      const dt = (now - lastTimeRef.current) / 1000;
+      lastTimeRef.current = now;
+      const elapsed = (now - startTimeRef.current) / 1000;
+      m.uniforms.uTime.value = elapsed;
 
       const deg = (rotationRef.current % 360) + autoRotateRef.current * elapsed;
       const rad = (deg * Math.PI) / 180;
-      const c = Math.cos(rad);
-      const s = Math.sin(rad);
-      material.uniforms.uRot.value.set(c, s);
+      const cosVal = Math.cos(rad);
+      const sinVal = Math.sin(rad);
+      m.uniforms.uRot.value.set(cosVal, sinVal);
 
       const cur = pointerCurrentRef.current;
       const tgt = pointerTargetRef.current;
       const amt = Math.min(1, dt * pointerSmoothRef.current);
       cur.lerp(tgt, amt);
-      material.uniforms.uPointer.value.copy(cur);
-      renderer.render(scene, camera);
+      m.uniforms.uPointer.value.copy(cur);
+      r.render(s, c);
       rafRef.current = requestAnimationFrame(loop);
     };
     rafRef.current = requestAnimationFrame(loop);
@@ -254,13 +268,20 @@ export default function ColorBends({
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
       if (resizeObserver) resizeObserver.disconnect();
       else window.removeEventListener('resize', handleResize);
-      if (geometry) geometry.dispose();
-      if (material) material.dispose();
-      if (renderer) {
-        renderer.dispose();
-        if (renderer.domElement && renderer.domElement.parentElement === container) {
-          container.removeChild(renderer.domElement);
+      if (geometryRef.current) {
+        geometryRef.current.dispose();
+        geometryRef.current = null;
+      }
+      if (materialRef.current) {
+        materialRef.current.dispose();
+        materialRef.current = null;
+      }
+      if (rendererRef.current) {
+        rendererRef.current.dispose();
+        if (rendererRef.current.domElement && rendererRef.current.domElement.parentElement === container) {
+          container.removeChild(rendererRef.current.domElement);
         }
+        rendererRef.current = null;
       }
     };
   }, [bandWidth, frequency, intensity, iterations, mouseInfluence, noise, parallax, scale, speed, transparent, warpStrength]);
