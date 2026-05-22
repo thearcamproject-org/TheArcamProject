@@ -40,14 +40,24 @@ export default function ServicesPage() {
               We do not build standard websites. We engineer high-velocity digital ecosystems designed to dominate markets and drive revenue.
             </p>
             
-            <motion.a
-              href="#tiers"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full border border-white/10 bg-white/[0.02] text-white font-semibold text-[10px] tracking-[0.3em] uppercase hover:bg-white hover:text-black transition-all duration-500"
-            >
-              Explore Tiers <ArrowRight size={14} />
-            </motion.a>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <motion.a
+                href="#tiers"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-full border border-white/10 bg-white/[0.02] text-white font-semibold text-[10px] tracking-[0.3em] uppercase hover:bg-white hover:text-black transition-all duration-500"
+              >
+                Explore Tiers <ArrowRight size={14} />
+              </motion.a>
+              <motion.a
+                href="/roi"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#E7B366] text-black font-semibold text-[10px] tracking-[0.3em] uppercase hover:bg-white hover:text-black transition-all duration-500 shadow-[0_10px_30px_rgba(231,179,102,0.25)]"
+              >
+                ROI Calculator <ArrowRight size={14} />
+              </motion.a>
+            </div>
           </motion.div>
         </div>
       </section>

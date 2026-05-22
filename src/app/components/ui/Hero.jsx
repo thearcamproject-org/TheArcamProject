@@ -47,7 +47,7 @@ export default function Hero() {
   return (
     <section id="home" ref={heroRef} className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-black antialiased">
       {/* Background Shader Effect */}
-      <div className="absolute inset-0 z-0 opacity-70 [mask-image:linear-gradient(to_bottom,white_60%,transparent)]">
+      <div className="absolute inset-0 z-0 opacity-35 [mask-image:linear-gradient(to_bottom,white_60%,transparent)]">
         {isMounted && inView && !isMobile && (
           <ColorBends
             colors={["#FFF176", "#FFEE58", "#E7B366"]}
@@ -60,7 +60,7 @@ export default function Hero() {
             noise={0.15}
             parallax={0}
             iterations={1}
-            intensity={2.0}
+            intensity={1.0}
             bandWidth={6}
             transparent
             autoRotate={0}

@@ -5,14 +5,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { ArrowRight, Calculator, TrendingUp } from 'lucide-react';
 
-const PARTICLES = [
-  { x1: "10%", y1: "20%", x2: "25%", y2: "40%", duration: 25, delay: 0 },
-  { x1: "80%", y1: "15%", x2: "65%", y2: "35%", duration: 32, delay: -5 },
-  { x1: "30%", y1: "75%", x2: "45%", y2: "55%", duration: 28, delay: -12 },
-  { x1: "85%", y1: "85%", x2: "70%", y2: "65%", duration: 35, delay: -18 },
-  { x1: "50%", y1: "35%", x2: "35%", y2: "55%", duration: 26, delay: -3 },
-  { x1: "90%", y1: "45%", x2: "75%", y2: "25%", duration: 30, delay: -8 },
-];
+
 
 export default function ROI() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
@@ -139,111 +132,7 @@ export default function ROI() {
         }
       ` }} />
 
-      {/* Animated Background Cinematic Glows */}
-      <motion.div 
-        animate={{
-          x: [0, 40, -20, 0],
-          y: [0, -30, 20, 0],
-          scale: [1, 1.15, 0.9, 1],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-        className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vh] bg-[#E7B366]/8 rounded-full blur-[130px] pointer-events-none opacity-25 z-0" 
-      />
-      <motion.div 
-        animate={{
-          x: [0, -30, 30, 0],
-          y: [0, 40, -20, 0],
-          scale: [1, 0.85, 1.1, 1],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-        className="absolute top-1/3 right-1/4 translate-x-1/2 w-[40vw] h-[40vh] bg-[#E7B366]/8 rounded-full blur-[140px] pointer-events-none opacity-15 z-0" 
-      />
 
-      {/* Floating Technical Particle Nodes */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        {PARTICLES.map((p, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-[2px] h-[2px] rounded-full bg-[#E7B366]"
-            initial={{ left: p.x1, top: p.y1 }}
-            animate={{
-              left: [p.x1, p.x2, p.x1],
-              top: [p.y1, p.y2, p.y1],
-              opacity: [0.1, 0.45, 0.1],
-            }}
-            transition={{
-              duration: p.duration,
-              delay: p.delay,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Subtle Technical Dot-Matrix Grid Background */}
-      <div 
-        className="absolute inset-0 pointer-events-none select-none opacity-50 z-0" 
-        style={{ 
-          backgroundImage: 'radial-gradient(rgba(231, 179, 102, 0.1) 1.5px, transparent 1.5px)', 
-          backgroundSize: '32px 32px',
-          maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)', 
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)' 
-        }}
-      />
-
-      {/* Dynamic Blurred Circular Orbs — faded from top & bottom */}
-      <div 
-        className="absolute inset-0 overflow-hidden pointer-events-none z-0"
-        style={{
-          maskImage: 'linear-gradient(to bottom, transparent, black 12%, black 88%, transparent)',
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 12%, black 88%, transparent)',
-        }}
-      >
-        {/* Orb 1 — Large, left-center */}
-        <motion.div
-          animate={{
-            x: [0, 60, -40, 0],
-            y: [0, -50, 30, 0],
-            scale: [1, 1.1, 0.95, 1],
-          }}
-          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-[35%] left-[15%] w-[350px] h-[350px] md:w-[500px] md:h-[500px] rounded-full blur-[80px] opacity-20"
-          style={{ background: 'radial-gradient(circle, #E7B366 0%, transparent 70%)' }}
-        />
-
-        {/* Orb 2 — Medium, right-upper */}
-        <motion.div
-          animate={{
-            x: [0, -50, 30, 0],
-            y: [0, 40, -30, 0],
-            scale: [1, 0.9, 1.08, 1],
-          }}
-          transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut', delay: -7 }}
-          className="absolute top-[20%] right-[10%] w-[300px] h-[300px] md:w-[450px] md:h-[450px] rounded-full blur-[80px] opacity-15"
-          style={{ background: 'radial-gradient(circle, #E7B366 0%, transparent 70%)' }}
-        />
-
-        {/* Orb 3 — Small accent, bottom-center */}
-        <motion.div
-          animate={{
-            x: [0, 30, -20, 0],
-            y: [0, -25, 15, 0],
-            scale: [1, 1.15, 0.9, 1],
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut', delay: -3 }}
-          className="absolute bottom-[15%] left-[50%] -translate-x-1/2 w-[250px] h-[250px] md:w-[400px] md:h-[400px] rounded-full blur-[80px] opacity-15"
-          style={{ background: 'radial-gradient(circle, #E7B366 0%, transparent 70%)' }}
-        />
-      </div>
 
       <div className="container-max relative z-10 px-4 md:px-8">
         {/* Section Header */}
